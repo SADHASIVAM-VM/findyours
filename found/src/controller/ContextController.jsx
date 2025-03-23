@@ -46,13 +46,14 @@ console.log(em)
          
         }
   
-   
+  //  edit Current Report
+  const [getEditReport, setEditReport]=useState()
 
 
 
-    const ContextValues ={
-        logout,user, setUser,currentUserId, setCurrentUserId,currentUser
-    }
+  const ContextValues ={
+        logout,user, setUser,currentUserId, setCurrentUserId,currentUser,
+        getEditReport, setEditReport}
 
     return(
         <myContext.Provider value={ContextValues}>

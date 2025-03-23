@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useCon } from "../controller/ContextController";
-import useAccess from "../hook/useAccess";
+import useAccess from "../hook/useaccess";
+import { toast } from "react-toastify";
 
 const ReportItem = () => {
 
 
 const [typee, setType] = useState("")
-const {currentUserId,currentUser, user} = useCon();
+const {currentUserId,currentUser, user, getEditReport} = useCon();
 const [imagesStore, setImageStore]= useState([])
+const [Loader, setLoader]= useState(null)
 const [imagePreview, setImagePreview]= useState([])
 // console.log(imagesStore)
 // console.log(currentUserId)
-console.log(user)
+console.log(getEditReport)
+const selectedType = typee || getEditReport?.itemType;
+// console.log(user)
 useEffect(()=>{
   currentUser()
-},[user&&user])
+
+  // checking wheather edit or not
+  if(getEditReport){
+    setFormData(getEditReport)
+  }
+},[user])
 
 const [formData, setFormData] = useState({
     user_id:"",
@@ -42,8 +51,6 @@ useEffect(()=>{
   }
 },[currentUserId, typee])
 
-
-
 //  console.log(CurrentUserData)
 
   // Handle Input Changes
@@ -60,43 +67,54 @@ useEffect(()=>{
       setImagePreview(URL.createObjectURL(selectedFile))
         
   }
-
+const handleMethod = getEditReport ?"PUT":"POST";
+console.log(handleMethod)
   // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
 
     const FM = new FormData();
-
-    // Append all form fields dynamically
+    
     Object.entries(formData).forEach(([key, value]) => {
         FM.append(key, value);
     });
-
-    // Append multiple images
-         FM.append('images', imagesStore)
-        FM.append('itemType',typee);
-    
-
-    console.log("FormData:", FM);
+    console.log(FM)
+    if (imagesStore) {
+        FM.append('images', imagesStore);
+    }
+    FM.append('itemType', typee);
 
     try {
-        const response = await fetch(import.meta.env.VITE_PUBLIC_URL + 'item', {
-            method: "POST",
-            body: FM, // No need for headers; FormData automatically sets them
+        const url = getEditReport 
+          ? `${import.meta.env.VITE_PUBLIC_URL}item/update/${getEditReport._id}`
+          : `${import.meta.env.VITE_PUBLIC_URL}item`;
+
+        const response = await fetch(url, {
+            method: getEditReport ? "PUT" : "POST",
+            body: FM,
         });
 
-        const data = await response.json();
-        console.log("Submitted:", data);
+        const data = await response.json(); // Await JSON parsing
+
+        if (response.ok) {
+            toast.success(`Successfully ${getEditReport ? "updated" : "posted"}`);
+        } else {
+            toast.error(`Failed to ${getEditReport ? "update" : "post"}`);
+        }
     } catch (error) {
-        console.error("Error submitting form:", error);
+        toast.error("An error occurred while submitting.");
+    } finally {
+        setLoader(false);
     }
 };
+
 
    
     
 
   return (
-    <div className=" shadow-lg rounded-lg p-6 md:w-6xl mx-auto bg-white m-5">
+    <div className=" shadow-lg rounded-lg p-6 md:w-6xl mx-auto bg-white m-5 relative">
       <h2 className="text-2xl font-bold text-center">
         Post Lost & Found Item
       </h2>
@@ -105,13 +123,13 @@ useEffect(()=>{
       </p>
 
       {/* Toggle Lost/Found Type */}
-      <p className="inline text-[12px] bg-green-500 px-3 rounded-sm">Select Type</p>
-      <div className="flex  gap-4 mb-4">
-        <label className={`flex  space-x-2 ${typee == "lost" && "bg-yellow-400"} text-black font-bold border p-2 rounded-xl`} onClick={()=> setType("lost")}>
+      <p className="inline text-[12px] text-white bg-blue-500 px-3 py-1  rounded-sm">Select Type</p>
+      <div className="flex  gap-4 my-3">
+        <label className={`flex  space-x-2 ${selectedType == "lost" && "bg-yellow-400"} text-black font-bold border p-2 rounded-xl`} onClick={()=> setType("lost")}>
          
           <span>Lost Item</span>
         </label>
-        <label className={`flex  space-x-2 ${typee == "found" && "bg-yellow-400"} text-black font-bold border p-2 rounded-xl`} onClick={()=> setType("found")}>
+        <label className={`flex  space-x-2 ${selectedType == "found" && "bg-yellow-400"} text-black font-bold border p-2 rounded-xl`} onClick={()=> setType("found")}>
          
          <span>Found Item</span>
        </label>
@@ -156,7 +174,7 @@ useEffect(()=>{
 
           <div>
             <label className="block text-left pb-2  font-medium text-  ">Date *</label>
-            <input
+           <input
               type="date"
               name="dateLostOrFound"
               value={formData.dateLostOrFound}
@@ -271,9 +289,16 @@ useEffect(()=>{
         </div>
       </form>
      {
-      typee == "" &&  <div className="bg-[#f4f4f4] opacity-75 w-full h-full absolute top-0 right-0"></div>
+       selectedType == null  && <div className={`bg-[#f4f4f4] opacity-75 w-full h-full absolute top-0 right-0`}></div>
+      
      }
       </div>
+      {
+      Loader? <div className="w-full h-[100%] left-0 absolute top-0 flex justify-center items-center bg-[#00000088] 
+       ">
+        <div className="loader"></div>
+      </div>:''
+     }
     </div>
   );
 };

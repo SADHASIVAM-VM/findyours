@@ -110,7 +110,7 @@ async function onSubmit(){
     
       <div
         className="md:w-2/3 hidden rounded-lg md:flex bg-cover bg-center"
-        style={{ backgroundImage: "url('/lg.jpg')" }}
+        style={{ backgroundImage: "url('/loginImg.png')" }}
       ></div>
       
       {/* Form */}
@@ -159,13 +159,13 @@ async function onSubmit(){
         </Card>
 
 {/* error validatation */}
-        <Alert variant="destructive" className="bg-red-100 w-full">
+        {/* <Alert variant="destructive" className="bg-red-100 w-full">
       <AlertCircle className="h-4 w-4" />
       <AlertTitle>Error</AlertTitle>
       <AlertDescription>
         Your Email or Password is Wrong. Please log in again.
       </AlertDescription>
-    </Alert>
+    </Alert> */}
       </div>
     </div>
 

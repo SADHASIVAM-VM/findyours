@@ -12,6 +12,9 @@ import { useCon } from "./controller/ContextController";
 import ReportItem from "./page/ReportItem";
 import PrivateRoute from "./route/privateRoute";
 import Cookies from "js-cookie";
+import {ToastContainer} from'react-toastify'
+import AboutPage from "./page/About";
+import Navbar from "./component/Navbar";
 
 const App = () => {
   const {user} = useCon()
@@ -29,15 +32,17 @@ const App = () => {
           index: true,
           path: "/",
           element: (
-            <PrivateRoute>
+            <>
               <Home />
-            </PrivateRoute>
+            </>
           ),
         },
         {
           path: "/report",
           element: (
-              <ReportItem />
+            <PrivateRoute>
+            <ReportItem />
+          </PrivateRoute>
        
           ),
         },
@@ -45,7 +50,10 @@ const App = () => {
           path: "/all",
           element: (
           
-              <AllItems />
+            <PrivateRoute>
+         
+            <AllItems />
+          </PrivateRoute>
            
           ),
         },
@@ -53,7 +61,9 @@ const App = () => {
           path: "/view/:id",
           element: (
        
-              <View />
+            <PrivateRoute>
+            <View />
+          </PrivateRoute>
             
           ),
         },
@@ -64,6 +74,10 @@ const App = () => {
               <Dashboard />
             </PrivateRoute>
           ),
+        },
+        {
+          path:"/about",
+          element:<AboutPage/>
         },
         {
           path: "/admin",
@@ -78,6 +92,18 @@ const App = () => {
   ]);
   return (
     <>
+    <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
       <RouterProvider router={Router} />
     </>
   );

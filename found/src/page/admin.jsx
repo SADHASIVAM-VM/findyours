@@ -5,24 +5,31 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { Badge } from "@/components/ui/badge";
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { Trash2, CheckCircle, XCircle, User, PieChart, ShieldAlert, ArrowDownSquare } from "lucide-react";
+import useAccess from "../hook/useaccess";
+import Charrt from "../component/Charrt";
 
-// Sample Data
-const listings = [
-  { id: 1, title: "Lost Wallet", status: "Pending", owner: "John Doe", date: "2024-03-01" },
-  { id: 2, title: "Found iPhone", status: "Approved", owner: "Alice", date: "2024-02-28" },
-  { id: 3, title: "Lost Keys", status: "Flagged", owner: "Bob", date: "2024-02-25" },
-];
 
-const users = [
-  { id: 1, name: "John Doe", email: "john@example.com", role: "User" },
-  { id: 2, name: "Alice Smith", email: "alice@example.com", role: "Moderator" },
-];
-
-const flaggedListings = listings.filter((item) => item.status === "Flagged");
+// const flaggedListings = listings.filter((item) => item.status === "Flagged");
 
 export default function AdminDashboard() {
-  const [listingsData, setListingsData] = useState(listings);
-  const [heightt, setHeight]= useState(false)
+
+const [heightt, setHeight] = useState(false)
+
+  const {data:listings} = useAccess('item')
+  const {data:users} = useAccess('user')
+  const monthh = (listings.map((e)=> new Date(e.updatedAt).toUTCString().split(',')[1].split(' ')[2]))
+  
+
+
+  
+const formatDate = (postDate) => {
+  const date = new Date(postDate);
+  return new Intl.DateTimeFormat('en-GB', {
+    day: "2-digit",
+    month: "short"
+  }).format(date);
+};
+
 
   // Handle Status Change
   const handleStatusChange = (id, newStatus) => {
@@ -34,7 +41,7 @@ export default function AdminDashboard() {
   return (
     <div className=" mx-auto p-6 grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
       {/* Reports & Analytics */}
-      <div className="col-span-1 grid grid-cols-1 max-h-[600px]  gap-6 mb-6">
+      <div className="col-span-1 grid grid-cols-1 max-h-[600px] lg:sticky top-2 gap-6 mb-6">
         <Card >
           <CardContent className="flex items-center justify-between p-6">
             <div>
@@ -57,7 +64,7 @@ export default function AdminDashboard() {
           <CardContent className="flex items-center justify-between p-6">
             <div>
               <h3 className="text-lg font-semibold">Flagged Listings</h3>
-              <p className="text-3xl font-bold">{flaggedListings.length}</p>
+              <p className="text-3xl font-bold">{ 0}</p>
             </div>
             <ShieldAlert className="text-red-500 h-10 w-10" />
           </CardContent>
@@ -87,22 +94,22 @@ export default function AdminDashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {listingsData.map((listing) => (
+              {listings.map((listing) => (
                 <TableRow key={listing.id}>
-                  <TableCell>{listing.title}</TableCell>
-                  <TableCell>{listing.owner}</TableCell>
-                  <TableCell>{listing.date}</TableCell>
+                  <TableCell>{listing.itemName}</TableCell>
+                  <TableCell>{listing.reportedBy.name}</TableCell>
+                  <TableCell>{formatDate(listing.updatedAt)}</TableCell>
                   <TableCell>
                     <Badge variant="outline" className={
-                      listing.status === "Pending" ? "bg-yellow-200 text-yellow-700" :
-                      listing.status === "Approved" ? "bg-green-200 text-green-700" :
+                      listing.status === "closed" ? "bg-yellow-200 text-yellow-700" :
+                      listing.status === "open" ? "bg-green-200 text-green-700" :
                       "bg-red-200 text-red-700"
                     }>
                       {listing.status}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {listing.status === "Pending" && (
+                    {listing.status === "open" && (
                       <Button size="sm" variant="outline" className="mr-2" onClick={() => handleStatusChange(listing.id, "Approved")}>
                         <CheckCircle className="h-4 w-4 text-green-500" />
                       </Button>
@@ -164,7 +171,13 @@ export default function AdminDashboard() {
         </CardContent>
       </Card>
       
+
+      <div className="bg-white w-full rounded-xl p-3">
+      <Charrt userDataCount={users.length} reportDataCount={listings.length} />
+      </div>
         </div>
+
+    
     </div>
   );
 }

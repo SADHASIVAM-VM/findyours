@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/do-futuristic');
+@import url('https://fonts.cdnfonts.com/css/geometria');
 ::-webkit-scrollbar{
   display: none;
 }
@@ -6,10 +8,14 @@
   transition: .5s;
   scroll-behavior: smooth;
 }
+.logoh1{
+  font-family: 'DO Futuristic', sans-serif;
+  font-weight: 900;
 
+}
 body{
   background: radial-gradient(circle, rgba(50, 50, 50, 0.8) 10%, black 90%);
-
+  font-family: 'Geometria', sans-serif;
 }
 .bg{
   background:rgba(14, 14, 14, 0.8);
@@ -47,3 +53,8 @@ body{
 @keyframes l10-1 { 
     100% { transform:rotate(1turn)} 
 }
+
+.HeroBackground{
+  background: url('/herobg.svg');
+}
+

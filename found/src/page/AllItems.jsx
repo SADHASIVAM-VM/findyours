@@ -9,11 +9,9 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Search, Filter } from "lucide-react";
-import useAccess from "../hook/useAccess";
+import useAccess from "../hook/useaccess";
 import { useNavigate } from "react-router-dom";
 import Carded from "../component/Carded";
-
-// Sample Data
 
 export default function AllItems() {
   const navigate = useNavigate();
@@ -26,106 +24,64 @@ export default function AllItems() {
 
   useEffect(() => {
     setItems(data);
-  });
+  }, [data]);
 
-  // Filter items based on search and category
-  const filtered = (e) => {
-    if (
-      e.itemName.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (e.itemType == category || category == "all")
-    ) {
-      return e;
-    }
-  };
-  const filteredItems = items?.filter((e) => filtered(e)) || [];
+  const filteredItems = items?.filter((e) =>
+    e.itemName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (e.itemType === category || category === "all")
+  );
 
   return (
-    <div className="p-6 w-[90vw]  mx-auto">
-      {/* Search Bar & Filters */}
-      <div className="flex flex-col md:flex-row gap-4 bg-[#111827] p-2 rounded-md text-white items-center my-10">
+    <div className="p-2 md:p-6 w-[100vw] mx-auto  text-gray-200 min-h-screen">
+      <div className="flex flex-col md:flex-row gap-4  p-4 rounded-lg shadow-md text-white items-center my-10">
         <div className="relative w-full md:w-1/3">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 border-[#717171]" />
           <Input
             type="text"
             placeholder="Search items..."
-            className="pl-10"
+            className="pl-10  border-[#717171] text-white focus:ring-blue-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        {/* Category Filter */}
         <Select onValueChange={setCategory}>
-          <SelectTrigger className="w-full md:w-1/4">
+          <SelectTrigger className="w-full md:w-1/4 border-[#717171] text-white">
             <SelectValue placeholder="Filter by Status" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-gray-800 text-white">
             <SelectItem value="all">All</SelectItem>
             <SelectItem value="lost">Lost</SelectItem>
             <SelectItem value="found">Found</SelectItem>
           </SelectContent>
         </Select>
 
-        {/* Sort Options */}
         <Select onValueChange={setSortBy}>
-          <SelectTrigger className="w-full md:w-1/4">
+          <SelectTrigger className="w-full md:w-1/4  border-[#717171] text-white">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-gray-800 text-white">
             <SelectItem value="newest">Newest</SelectItem>
             <SelectItem value="closest">Closest Location</SelectItem>
             <SelectItem value="relevant">Most Relevant</SelectItem>
           </SelectContent>
         </Select>
 
-        <Button className="w-full md:w-auto">
+        <Button className="w-full md:w-auto bg-[#3b3b3b] hover:bg-[#323232] text-white">
           <Filter className="mr-2 h-4 w-4" /> Apply
         </Button>
       </div>
 
-      {/* Search Results */}
-
-      <h1 className="text-white text-2xl font-bold text-left my-5">
-        Recommends
-      </h1>
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5 place-content-center w-full items-center">
+      <h1 className="text-white text-2xl font-bold text-left my-5">L&F ITEMS</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 place-content-center w-full items-center">
         {filteredItems.length === 0 ? (
           <p className="col-span-6 flex justify-center items-center h-[300px]">
-            <img src={"/noresult.png"} alt="" className="object-contain" />
+            <img src={"/noresult.png"} alt="No results found" className="object-contain" />
           </p>
         ) : (
-          filteredItems.map((e, index) => (
-            <Carded key={index} prop={e} index={index} />
-          ))
+          filteredItems.map((e, index) => <Carded key={index} prop={e} index={index} />)
         )}
       </div>
     </div>
   );
 }
-
-// query based searching in db
-// var query =new URLSearchParams();
-// const handleChange =(e)=>{
-// const {value, name} = e.target;
-// setfilterd((prev)=>({...prev, [name]:value}))
-// }
-
-// const searchNow =async()=>{
-//   if(filterd.searchTerm.length >0){
-//     query.append('find',filterd.searchTerm)
-//   }
-//   if(filterd.location.length >0){
-//     query.append('location',filterd.location)
-//   }
-//   if(filterd.type !=""){
-//     query.append("type",type)
-//   }
-//   if (filterd.searchTerm && !filterd.location == "" && filterd.type == 'all') {
-//     setItems(data);
-// }
-
-// // console.log("=======================================  ", import.meta.env.VITE_PUBLIC_URL+`search${query}`)
-//    await fetch(import.meta.env.VITE_PUBLIC_URL+`item/search?${query}`)
-//   .then((res)=>res.json()).then((res)=> setItems(res)).catch((err)=> console.log(err))
-
-// }

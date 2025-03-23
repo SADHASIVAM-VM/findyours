@@ -6,7 +6,7 @@ const Layout = () => {
   return (
 <>
     <nav>
-       <div className="md:mt-3 mb-5 md:w-[90vw] mx-auto ">
+       <div className="mb-5 md:w-[90vw] mx-auto ">
        <Navbar/>
        </div>
     </nav>

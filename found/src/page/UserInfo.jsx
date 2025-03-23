@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { Mail, Lock, Edit, Trash2 } from "lucide-react";
-import useAccess from "../hook/useAccess";
+import useAccess from "../hook/useaccess";
 import { useCon } from "../controller/ContextController";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-  const { currentUserId, currentUser } = useCon();
+  const navigate = useNavigate ();
+  const { currentUserId, currentUser, setEditReport } = useCon();
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState(true);
 
@@ -26,9 +28,6 @@ export default function Dashboard() {
   },[currentUserData])
  
 
-
-  // Fetch user-related data
-
   // Ensure data is loaded before filtering
   const Lcount = data?.filter((e) => e.itemType === "lost") || [];
   const Fcount = data?.filter((e) => e.itemType === "found") || [];
@@ -38,6 +37,11 @@ export default function Dashboard() {
       setLoading(false); // Set loading false when data is available
     }
   }, [data]);
+
+  const handleEdit =(e)=>{
+    setEditReport(e);
+    navigate('/report');
+  }
 
   return (
     <div className="grid lg:grid-cols-3 p-3 gap-6 relative">
@@ -54,7 +58,8 @@ export default function Dashboard() {
               <p className="text-gray-500">{currentUserData?.email || "No email provided"}</p>
             </div>
             <Button className="ml-auto">
-              <Edit className="h-4 w-4 mr-2" /> Edit
+              <Edit className="h-4 w-4 mr-2" /> 
+              <p className="hidden md:block">Edit</p>
             </Button>
           </CardHeader>
         </Card>
@@ -95,13 +100,20 @@ export default function Dashboard() {
                       <p className="font-medium">{report.itemName}</p>
                       <p className="text-sm text-gray-500">{report.date}</p>
                     </div>
+                    <div className="flex items-center gap-2">
                     <span
                       className={`px-3 py-1 text-sm rounded-full ${
                         report.status === "Lost" ? "bg-red-200 text-red-600" : "bg-green-200 text-green-600"
                       }`}
                     >
                       {report.status}
+                      
                     </span>
+                    <button className=" bg-black text-[12px] hover:cursor-pointer hover:scale-110 p-1 rounded-md flex items-center justify-center mr-5" onClick={()=>handleEdit(report)}>
+              <Edit className="h-4 w-4 mr-2" color="white" /> 
+            </button>
+                    </div>
+                    
                   </div>
                 ))}
               </div>

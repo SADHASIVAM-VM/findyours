@@ -1,4 +1,5 @@
 
+const { mongo } = require("mongoose");
 const reportModel = require("../model/reportItemModel");
 const { findMatchingLostItems, findMatchingFoundItems } = require("./notificatonController");
 
@@ -107,5 +108,38 @@ const listCurrentUserReport= async(req, res)=>{
         res.status(500).json({msg:err})
         }}
 
+const updateReport = async(req, res)=>{
+    const {id} = req.params;
+    const { itemName, description, category, location, reward,contactNumber, images} = req.body;
+//    console.log(itemName)
+const file = req.file
+console.log(file)
 
-    module.exports={newReport,listReport,singleItem,listCurrentUserReport};
+    try{
+        const updateObject = {}
+        if(description !== undefined) updateObject.description = description;
+        if(reward !== undefined) updateObject.description = reward;
+        if(itemName !== undefined) updateObject.itemName = itemName;
+        if(category !== undefined) updateObject.category = category;
+        if(location !== undefined) updateObject.location = location;
+        if(contactNumber !== undefined) updateObject.contactNumber = contactNumber;
+        if(images !== undefined) updateObject.images = `/uploads/${req.file.filename}`;
+
+        if ((updateObject).length === 0) {
+            return res.status(400).json({ error: "No fields provided for update" });
+          }
+
+       await reportModel.updateOne({_id:id},{$set:updateObject})
+        
+    res.status(200).json({
+      message: "item updated successfully!",
+ 
+    });
+    }
+    catch(err){
+        res.status(500).json({msg:"internal Eror"})
+    }
+}
+
+
+    module.exports={newReport,listReport,singleItem,listCurrentUserReport, updateReport};
