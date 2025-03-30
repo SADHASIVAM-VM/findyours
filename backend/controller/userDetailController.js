@@ -14,7 +14,7 @@ try{
     if(!nn){
         return res.status(400).json({msg:"unable create user"})
     }
-    return res.status(200).json({msg:"user created successfully", data:nn})
+    res.status(200).json({msg:"user created successfully", data:nn})
 
 
 }

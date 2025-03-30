@@ -15,6 +15,8 @@ import Cookies from "js-cookie";
 import {ToastContainer} from'react-toastify'
 import AboutPage from "./page/About";
 import Navbar from "./component/Navbar";
+import ChatList from "./component/ChatList";
+import ChatComponent from "./component/Chat";
 
 const App = () => {
   const {user} = useCon()
@@ -72,6 +74,14 @@ const App = () => {
           element: (
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/chat",
+          element: (
+            <PrivateRoute>
+              <ChatComponent/>
             </PrivateRoute>
           ),
         },

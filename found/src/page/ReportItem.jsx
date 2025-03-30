@@ -3,6 +3,7 @@ import { useCon } from "../controller/ContextController";
 import useAccess from "../hook/useaccess";
 import { toast } from "react-toastify";
 
+
 const ReportItem = () => {
 
 
@@ -32,7 +33,7 @@ const [formData, setFormData] = useState({
     dateLostOrFound: "",
     reward:"",
     location: "",
-    description: "",
+    description: "", 
     contactName: "",
     contactNumber: "",
     reportedBy:'',
@@ -83,7 +84,7 @@ console.log(handleMethod)
     if (imagesStore) {
         FM.append('images', imagesStore);
     }
-    FM.append('itemType', typee);
+    !getEditReport && FM.append('itemType', typee);
 
     try {
         const url = getEditReport 

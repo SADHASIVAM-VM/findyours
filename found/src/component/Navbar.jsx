@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCon } from "../controller/ContextController";
-import { CheckCircle, CircleX, Eye, LogOut, LucideView, View, X } from "lucide-react";
+import { CheckCircle, CircleX, Eye, LogOut, LucideView, MessageCircle, MessageCircleHeart, MessageCircleMore, View, X } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -10,11 +10,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import useAccess from "../hook/useaccess";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import menu from '../assets/icon/menu.png'
 import x from '../assets/icon/x.png'
+
+
  
 const Navbar = () => {
+  const navigate = useNavigate()
   const {logout, user} = useCon()
   const {data} = useAccess('notify')
   const [isOpen, setIsOpen] = useState(false)
@@ -29,7 +32,7 @@ const Navbar = () => {
 
 const menuItem =[
   {
-  path:'All',
+  path:'all',
   link:'/all'
 },
   {
@@ -41,7 +44,7 @@ const menuItem =[
   link:'/about'
 },
   {
-  path:'Report',
+  path:'report',
   link:'/report'
 },
 
@@ -82,8 +85,8 @@ const menuItem =[
                   ))
               }
 
-<button className="px-6 py-3 bg-[#FFD000] text-black rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm" >
-           <p className="text-[14px]">{user?"logout":"login"}</p>
+<button className="px-6 py-3 bg-[#FFD000] text-black rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm" onClick={logout}>
+           <p className="text-[14px]" >{user?"logout":"login"}</p>
             </button>
 
             </div>
@@ -98,9 +101,12 @@ const menuItem =[
            
            <p className="text-[14px] p-1 font-bold">{user?"logout":"login"}</p>
             </button>
-
+{/* message Icon */}
+            <div className=" hover:-translate-y-1 hover:border-[#ababab] transition-all " onClick={()=> navigate('/chat')}>
+              <MessageCircleMore color={"#ababab"}/>
+            </div>
             {/* Notification Icon */}
-            <div className="relative hover:-translate-y-1 mt-2 hover:border-red-300 transition-all ">
+            <div className="relative md:order-1 hover:-translate-y-1 mt-2 hover:border-red-300 transition-all ">
             <Sheet>
       <SheetTrigger>
         <svg
@@ -121,7 +127,7 @@ const menuItem =[
         <SheetHeader>
           <SheetTitle className="text-xl font-bold text-gray-800">Notifications</SheetTitle>
           <SheetDescription>
-            <div className="flex flex-col gap-4 h-full overflow-auto p-2">
+            <div className="flex flex-col gap-4 overflow-scroll h-[80vh] p-2">
               {data.length > 0 ? (
                 data.map((e, index) => (
                   <div

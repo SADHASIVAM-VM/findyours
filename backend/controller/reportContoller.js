@@ -110,22 +110,22 @@ const listCurrentUserReport= async(req, res)=>{
 
 const updateReport = async(req, res)=>{
     const {id} = req.params;
-    const { itemName, description, category, location, reward,contactNumber, images} = req.body;
+    const { itemName, description, category, location, reward,contactNumber} = req.body;
 //    console.log(itemName)
 const file = req.file
-console.log(file)
+console.log(description)
 
     try{
         const updateObject = {}
-        if(description !== undefined) updateObject.description = description;
-        if(reward !== undefined) updateObject.description = reward;
+        if(description !== undefined) {updateObject.description = description}
+        if(reward !== undefined) updateObject.reward = reward;
         if(itemName !== undefined) updateObject.itemName = itemName;
         if(category !== undefined) updateObject.category = category;
         if(location !== undefined) updateObject.location = location;
         if(contactNumber !== undefined) updateObject.contactNumber = contactNumber;
-        if(images !== undefined) updateObject.images = `/uploads/${req.file.filename}`;
+        if(file !== undefined) updateObject.images = `/uploads/${file.filename}`;
 
-        if ((updateObject).length === 0) {
+        if (Object.values(updateObject).length === 0) {
             return res.status(400).json({ error: "No fields provided for update" });
           }
 

@@ -7,7 +7,6 @@ const myContext = createContext();
 export function ContextApp({children}){
      const [user, setUser] = useState(null);
      const [currentUserId, setCurrentUserId]=useState()
-
          // current user
 const em = user&&user.email
 console.log(em)
@@ -50,10 +49,15 @@ console.log(em)
   const [getEditReport, setEditReport]=useState()
 
 
+  // chat 
+  const [MessageId, setMessageId] = useState({
+      userId:'',
+      receiverId:''
+     });
 
   const ContextValues ={
         logout,user, setUser,currentUserId, setCurrentUserId,currentUser,
-        getEditReport, setEditReport}
+        getEditReport, setEditReport, MessageId, setMessageId}
 
     return(
         <myContext.Provider value={ContextValues}>

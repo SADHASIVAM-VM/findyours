@@ -18,25 +18,25 @@ const FeatureCard = ({ icon, title, description }) => (
     <div className="bg-gray-400/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
       {icon}
     </div>
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    <h3 className="text-md md:text-xl font-semibold mb-2">{title}</h3>
     <p className="text-gray-300 text-sm">{description}</p>
   </div>
 );
 
 // Item Card Component
 const ItemCard = ({ item }) => (
-  <div className="w-64 bg-[#FFF7FC] border hover:cursor-pointer transition-all hover:-translate-y-1 p-5 rounded-xl text-black flex-shrink-0 relative">
+  <div className="md:w-64 w-full bg-[#FFF7FC] border hover:cursor-pointer transition-all hover:-translate-y-1 p-5 rounded-xl text-black flex-shrink-0 relative">
     <div className="w-full h-36 mb-3 flex justify-center">
       <img src={item.images} alt={item.itemName} className="h-full object-cover rounded-lg" />
     </div>
     <div className="flex flex-col space-y-2">
-      <h1 className="font-bold text-xl">{item.itemName}</h1>
+      <h1 className="font-bold text-md md:text-xl">{item.itemName}</h1>
       <p className="text-xs text-[#3a3a3a]">
-        <span className="font-bold bg-yellow-300 px-2 py-1 rounded-md inline-block mb-1">{item.category}</span> 
+        <span className="font-bold bg-yellow-300 px-2 py-1 rounded-md inline-block mb-1 text-[10px]">{item.category}</span> 
         <span className="block mt-1 line-clamp-2">{item.description}</span>
       </p>
 
-      <div className="flex items-center mt-2 space-x-4 bg-[#ededed] py-2 px-1 rounded-lg">
+      <div className="flex items-center mt-2 space-x-4 bg-[#f3f3f3] py-2 px-1 rounded-lg">
         <div className="flex gap-2 w-full items-center">
           <Avatar src="https://github.com/shadcn.png" fallback="CN" />
           <p className="text-xs">{item.contactOwner}</p>
@@ -58,28 +58,28 @@ const FindYoursApp = () => {
   const navigate = useNavigate()
   // Icons
   const LocationIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="red" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
       <circle cx="12" cy="10" r="3"/>
     </svg>
   );
 
   const SearchIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8"/>
       <path d="m21 21-4.3-4.3"/>
     </svg>
   );
 
   const NotificationIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="red" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
     </svg>
   );
 
   const CommunityIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" stroke="yellow" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
       <circle cx="9" cy="7" r="4"/>
       <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
@@ -131,8 +131,8 @@ const FindYoursApp = () => {
       <section className=" py-20 my-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Reunite with Your Lost Items</h1>
-            <p className="text-2xl font-bold text-white/40 mb-8">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Reunite with Your Lost Items</h1>
+            <p className="text-xl md:text-2xl font-bold text-white/40 mb-8">
               FindYour's creates a trustworthy community platform where you can post lost or found items and help each other recover what matters most.
             </p>
             <div className="flex justify-center gap-4">
@@ -182,8 +182,8 @@ const FindYoursApp = () => {
       {/* Stats Section */}
       <section className="md:py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-10">Success Rate</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+          <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">Success Rate</h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-5 max-w-3xl mx-auto">
             <div className="text-center p-6 ">
               <p className="text-4xl font-bold text-[#ffc306] mb-2">10,000+</p>
               <p className="text-gray-300">Items Recovered</p>
@@ -203,7 +203,7 @@ const FindYoursApp = () => {
       {/* Recent Items */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-10">Recent Found Items</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">Recent Found Items</h1>
           <div className="flex flex-wrap gap-6 justify-center">
             {sampleItems.map((item, index) => (
               <ItemCard key={index} item={item} />
@@ -221,8 +221,8 @@ const FindYoursApp = () => {
       <section id="features" className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Features</h2>
-            <p className="text-2xl font-bold text-white/40 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Features</h2>
+            <p className="text-xl md:text-2xl font-bold text-white/40 mb-8">
               Our platform offers everything you need to find lost items or return found ones to their rightful owners.
             </p>
           </div>
@@ -243,7 +243,7 @@ const FindYoursApp = () => {
               description="Get notified immediately when someone finds an item matching your description."
             />
             <FeatureCard 
-              icon={<CommunityIcon />}
+              icon={<CommunityIcon/>}
               title="Community Trust"
               description="Our verification system ensures safe and secure interactions between users."
             />
@@ -255,56 +255,17 @@ const FindYoursApp = () => {
       <section className="py-16 ">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Find What You've Lost?</h2>
-            <p className="text-2xl font-bold text-white/40 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Find What You've Lost?</h2>
+            <p className="text-xl md:text-2xl font-bold text-white/40 mb-8">
               Join thousands of users who have successfully recovered their belongings with FindYour's.
             </p>
-            <button className="px-6 py-3 bg-[#FFD000] text-black rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm">
+            <button className="px-4 py-2 md:px-6 md:py-3 bg-[#FFD000] text-black rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm">
               Get Started Now
             </button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 bg-[#1E1E1E] rounded-t-2xl text-white">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-1">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#332941] font-bold">
-                  <span>F</span>
-                </div>
-                <span className="text-xl font-bold">FindYour's</span>
-              </div>
-              <p className="text-gray-400 max-w-md">
-                Helping people find and recover lost items through a community-driven platform.
-              </p>
-            </div>
-            <div className="md:col-span-2 grid grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-lg font-medium mb-4">Legal</h3>
-                <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white">Terms</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Privacy</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Cookie Policy</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium mb-4">Support</h3>
-                <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white">Help Center</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Safety Tips</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white">Community Guidelines</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-            <p className="text-gray-400">&copy; {new Date().getFullYear()} FindYour's. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

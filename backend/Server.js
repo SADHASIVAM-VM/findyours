@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const connectDB = require('./config/db');
 const router = require('./route/userRoute');
@@ -6,8 +7,9 @@ const reportRouter = require('./route/reportRoute');
 const notifyRouter = require('./route/notifyRoute');
 const cors = require("cors");
 const fileCreate = require('./middleware/folderCreator');
+const ChatRouter = require('./route/ChatRoute');
 
-const app = express();
+
 connectDB();
 app.use(cors());
 app.use(express.json());

@@ -1,23 +1,29 @@
-import {React} from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {React, useEffect, useRef, useState} from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ArrowBigDown, ArrowDown, ArrowDownCircle, ArrowDownLeftFromCircle, Calendar, CheckCircle, Gift, Grid2X2, Map, MapPin, NotepadTextDashed } from "lucide-react";
+import { Info,Calendar, CheckCircle, Gift, Grid2X2, MapPin, CircleX } from "lucide-react";
 import useAccess from "../hook/useaccess";
 import Carded from "../component/Carded";
+import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import ChatComponent from "../component/Chat";
+import { useCon } from "../controller/ContextController";
 
 const View = () => {
+  const navigate = useNavigate()
+   const [isOpen, setIsOpen] = useState(false);
+   
+   const descriptionRef = useRef(null);
+   const {currentUserId,user,currentUser, MessageId, setMessageId} = useCon()
+  //  console.log("................=")
+  //  console.log(MessageId)
   const { id } = useParams();
   const { data, loading } = useAccess("item/i/" + id);
   const { data: similar } = useAccess("item");
+  console.log(data)
   var ctg;
   var loc;
   function formatDate(dateString) {
@@ -28,6 +34,16 @@ const View = () => {
     return diffInDays === 0 ? "Today" : diffInDays === 1 ? "1 day ago" : `${diffInDays} days ago`;
   }
  
+    useEffect(() => {
+      currentUser()
+      function handleClickOutside(event) {
+        if (descriptionRef.current && !descriptionRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [user]);
    
   return (
     <div className="min-h-screen bg-black md:py-10 md:px-6">
@@ -41,7 +57,9 @@ const View = () => {
             data.map((e, index) => {
                ctg = e.category;
                loc = e.location
+               
               return(
+                <>
                 <Card key={e._id} className="p-5 rounded-none md:rounded-xl  w-full md:max-w-4xl mx-auto bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
@@ -57,6 +75,7 @@ const View = () => {
         </div>
 
         {/*  Details Section */}
+        
         <div className="flex flex-col justify-between">
           
           {/* Badges (Status, Type, Date) */}
@@ -79,34 +98,54 @@ const View = () => {
           </p>
 
           {/*  Category, Reward, Date, and Location */}
-          <div className="mt-4 space-y-3 text-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <p className="font-medium text-sm flex gap-2 items-center"><Grid2X2 size={16} /> Category:</p>
-              <p className="text-gray-500">{e.category}</p>
-            </div>
-            <div>
-              <p className="font-medium text-sm flex gap-2 items-center"><Gift size={16} /> Reward:</p>
-              <p className="font-semibold">{e.reward ? `💲${e.reward}` : "N/A"}</p>
-            </div>
-            <div>
-              <p className="font-medium text-sm flex gap-2 items-center"><Calendar size={14} /> Lost/Found:</p>
-              <p className="text-gray-500">{ (new Date(e.dateLostOrFound)).getDate() +"/"+ (new Date(e.dateLostOrFound)).getMonth()+"/" +(new Date(e.dateLostOrFound)).getFullYear()}</p>
-            </div>
-            <div>
-              <p className="font-medium text-sm flex gap-2 items-center"><MapPin size={16} /> Location:</p>
-              <p className="text-gray-500">{e.location}</p>
-            </div>
+          <div className="">
+                {
+                  isOpen ?
+                   (
+                    <div className=" h-[250px] overflow-scroll p-5">
+                      <div className="flex items-center justify-between mb-2">
+                      <h1 className='font-bold '>Description:</h1>
+                      <CircleX color="red" size={'18px'} className="cursor-pointer" onClick={()=>setIsOpen(false)}/>
+                      </div>
+                      <p className='text-sm'>{e.description}</p>
+                    </div>
+                   ):
+                  <div className="mt-4 space-y-3 text-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <p className="font-medium text-sm flex gap-2 items-center"><Grid2X2 size={16} /> Category:</p>
+                    <p className="text-gray-500">{e.category}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm flex gap-2 items-center"><Gift size={16} /> Reward:</p>
+                    <p className="font-semibold">{e.reward ? `💲${e.reward}` : "N/A"}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm flex gap-2 items-center"><Calendar size={14} /> Lost/Found:</p>
+                    <p className="text-gray-500 text-sm">{ (new Date(e.dateLostOrFound)).getDate() +"/"+ (new Date(e.dateLostOrFound)).getMonth()+"/" +(new Date(e.dateLostOrFound)).getFullYear()}</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm flex gap-2 items-center"><MapPin size={16} /> Location:</p>
+                    <p className="text-gray-500 text-sm">{e.location}</p>
+                  </div>
+                </div>
+                }
+                
+
           </div>
+         
 
           {/* Description */}
           <div className="mt-4">
-          <Popover>
- <p className="font-medium text-sm flex gap-2 items-center"><NotepadTextDashed size={16} /> Description </p>
-  <PopoverContent><p className="text-gray-700 mt-1 text-sm">{e.description}</p></PopoverContent>        
-          
-            <p className="text-gray-700 mt-1 text-sm">{e.description.length < 40 ?(e.description) :(e.description.slice(0,40)+"....")} <PopoverTrigger> <ArrowDownCircle size={'20px'}/> 
-            </PopoverTrigger></p>
-            </Popover>
+      
+          <p className="font-medium text-sm flex gap-2 items-center"><Info size={16} /> Description 
+          </p> 
+                  
+          <div className="flex gap-3 items-center">
+        <p className="text-gray-700 mt-1 text-sm">{e.description.length < 40 ?(e.description) :(e.description.slice(0,40)+"....")} </p><button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-600 hover:text-blue-600">
+        <p className='text-[10px] cursor-pointer font-bold text-blue-400'>Read More</p>
+      </button> 
+        </div>
+      
           </div>
 
           {/*  Contact Information */}
@@ -122,13 +161,21 @@ const View = () => {
           </div>
 
           {/*  Contact Button */}
-          <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md">
+          <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md" onClick={()=>{
+
+            setMessageId({userId:currentUserId[0]?._id, receiverId:e.user_id})
+            navigate('/chat')
+          }
+            }>
             Contact Owner
           </Button>
 
         </div>
+
+
       </div>
     </Card>
+   </>
               )
             })
           ) : (
