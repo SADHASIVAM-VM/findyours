@@ -4,22 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Facebook, GithubIcon, MailPlus } from "lucide-react";
 import { Switch } from "@/components/ui/switch"
-import {
-    Alert,
-    AlertDescription,
-    AlertTitle,
-  } from "@/components/ui/alert"
+import {Alert,AlertDescription,AlertTitle,} from "@/components/ui/alert"
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../util/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useCon } from "../controller/ContextController";
 import { toast } from "react-toastify";
-
-
-
-
 const LoginPage = () => {
-
     const {user, setUser} = useCon()
     const [formData, setFormData] = useState({
         email:"",
@@ -34,11 +25,7 @@ function handleChange(e){
     const {name, value} = e.target;
     
         setFormData({...formData, [name]:value})
-       
-
-
 }
-
 async function onSubmit(){
     try {
         if (!mode) {
@@ -65,7 +52,6 @@ async function onSubmit(){
            }
           }
             setReg();
-          
         }
       } catch (error) {
         setLoading(false)
@@ -74,11 +60,7 @@ async function onSubmit(){
       }
       finally{
         setLoading(false)
-      }
-  
-
-}
-
+      }}
   // Sign Up
   const signUp = async () => {
     try {
@@ -131,11 +113,6 @@ async function onSubmit(){
       console.error("Error with Google Sign-In:", error.message);
     }
   };
-  
-
-
-
-
   return (
     <div className=" h-[90vh] p-5 relative">
     <div className="flex bg-[#f2f2f2] gap-5  rounded-lg justify-center h-full w-full p-3">
@@ -150,15 +127,10 @@ async function onSubmit(){
       <div className="flex w-full justify-start absolute top-0">
 <div className="flex gap-2 text-[12px] bg-white p-3 rounded-lg ">
         <p>login</p>
-      
-                    <Switch
-                      onCheckedChange={(e)=>setMode(e)} />
+        <Switch onCheckedChange={(e)=>setMode(e)} />
         <p>SignUp</p>
       </div>
 </div>
-
-    
-     
         <Card className="w-full border-none shadow-none bg-[#f2f2f2]  p-6 transition-all">
           <CardContent className="space-y-4">
             <h2 className="text-2xl font-semibold text-center">{!mode?"LogIn":"Sign up"}</h2>
@@ -171,8 +143,7 @@ async function onSubmit(){
 
             <Button className="w-full" onClick={onSubmit}>
                 {!mode?"Login":"Sign up"}
-</Button>
-            
+</Button>      
             {/* Social Login */}
             <div className="flex flex-col justify-center space-x-4 pt-4">
                 <div className="flex w-full items-center gap-2">
@@ -198,17 +169,10 @@ async function onSubmit(){
         Your Email or Password is Wrong. Please log in again.
       </AlertDescription>
     </Alert>}
-
-    
       </div>
     </div>
-
    {Loading&&<div className="absolute top-0 bg-black/30 h-full w-full flex justify-center items-center">
       <p className="loader"></p>
     </div>}
-    </div>
-    
-  );
-};
-
+    </div>);};
 export default LoginPage;

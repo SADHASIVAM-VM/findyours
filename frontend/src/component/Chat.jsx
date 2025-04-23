@@ -55,10 +55,10 @@ export default function ChatComponent() {
                     </div>
                 ))}
             </div>
-            <div className="flex">
+            <div className="flex flex-col gap-2">
                 <input 
                     type="text"
-                    className="flex-grow p-2 border rounded-l"
+                    className="flex-grow p-2 border border-indigo-400 rounded-l"
                     placeholder="Type a message..."
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}

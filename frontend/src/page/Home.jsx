@@ -140,7 +140,7 @@ const FindYoursApp = () => {
               Lost
             </button>
               
-            <button className="px-6 py-3  border border-[#FFD000] rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm" onClick={()=> navigate('/report')}>
+            <button className="px-6 py-3  border border-[#FFD000] rounded-md hover:bg-[#FFD000]/90 transition-colors font-medium text-sm" onClick={()=> navigate('/report')}>
               Found
             </button>
             </div>
@@ -149,35 +149,36 @@ const FindYoursApp = () => {
       </section>
 
       {/* Lost/Found Sections */}
-      <section className="py-12">
-        <div className="container mx-auto space-y-8 px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="md:col-span-1 rounded-xl p-5 flex items-center justify-center">
-              <h1 className="text-2xl text-[#F8E71C] md:text-4xl font-bold flex items-center">
-                Found item <ChevronRight size={22} />
-              </h1>
-            </div>
-            <div className="md:col-span-2 bg-[#1E1E1E] rounded-xl p-5 md:p-8 flex items-center">
-              <p className="text-[#F5F5F5]">
-                <b>Found something that isn't yours?</b> A small act of kindness can make a big difference! Someone might be searching for it desperately. Report found items on FindYour's and help bring smiles to those in need!
-              </p>
-            </div>
+      <section className="py-14">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row gap-6">
+
+          {/* Found Item */}
+          <div className=" rounded-xl p-6 md:p-8 flex flex-col gap-4 justify-center">
+            <h1 className=" text-2xl sm:text-3xl md:text-4xl font-bold flex items-center gap-2">
+            Found Something? Help It Find Its Way Back!
+            </h1>
+            <p className="text-[#F5F5F5]/60 text-base md:text-lg leading-relaxed">
+              Found something that isn't yours? A small act of kindness can make a big difference! 
+              Someone might be searching for it desperately. Report found items on <span className="font-semibold">FindYour's</span> and help bring smiles to those in need!
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="md:col-span-2 order-2 md:order-1 bg-[#1E1E1E] rounded-xl p-5 md:p-8 flex items-center">
-              <p className="text-[#F5F5F5]">
-                Losing something can be stressful, but don't be afraid—go and find it! Your lost item might be closer than you think. Stay hopeful and let FindYour's help you reconnect with what's missing. Post your lost item now and let the community help you!
-              </p>
-            </div>
-            <div className="md:col-span-1 order-1 md:order-2 rounded-xl p-5 flex items-center justify-center">
-              <h1 className="text-2xl text-[#F8E71C] md:text-4xl font-bold flex items-center">
-                Lost item <ChevronRight size={22} />
-              </h1>
-            </div>
+<div className="divder border border-white/50"></div>
+          {/* Lost Item */}
+          <div className="rounded-xl p-6 md:p-8 flex flex-col gap-4 justify-center">
+            <h1 className=" text-2xl sm:text-3xl md:text-4xl font-bold flex items-center gap-2">
+            Lost Something? Let's Help You Find It! 
+            </h1>
+            <p className="text-[#F5F5F5]/60 text-base md:text-lg leading-relaxed">
+              Losing something can be stressful, but don't worry—FindYour's has your back! Post your lost item and 
+              let the community help you get it back. Stay hopeful—your item might be closer than you think.
+            </p>
           </div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Stats Section */}
       <section className="md:py-16">
@@ -185,11 +186,11 @@ const FindYoursApp = () => {
           <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">Success Rate</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-5 max-w-3xl mx-auto">
             <div className="text-center p-6 ">
-              <p className="text-4xl font-bold text-[#ffc306] mb-2">10,000+</p>
+              <p className="text-4xl font-bold text-[#ffc306] mb-2">1000+</p>
               <p className="text-gray-300">Items Recovered</p>
             </div>
             <div className="text-center p-6 ">
-              <p className="text-4xl font-bold mb-2 text-[#ffc306]">5,000+</p>
+              <p className="text-4xl font-bold mb-2 text-[#ffc306]">500+</p>
               <p className="text-gray-300">Happy Users</p>
             </div>
             <div className="text-center p-6 ">
@@ -216,7 +217,6 @@ const FindYoursApp = () => {
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section id="features" className="py-16">
         <div className="container mx-auto px-4">
@@ -250,7 +250,6 @@ const FindYoursApp = () => {
           </div>
         </div>
       </section>
-
       {/* CTA Section */}
       <section className="py-16 ">
         <div className="container mx-auto px-4">
@@ -265,9 +264,5 @@ const FindYoursApp = () => {
           </div>
         </div>
       </section>
-
-    </div>
-  );
-};
-
+    </div>);};
 export default FindYoursApp;

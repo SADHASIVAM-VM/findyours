@@ -109,11 +109,11 @@ const formatDate = (postDate) => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {listing.status === "open" && (
+                    
                       <Button size="sm" variant="outline" className="mr-2" onClick={() => handleStatusChange(listing.id, "Approved")}>
                         <CheckCircle className="h-4 w-4 text-green-500" />
                       </Button>
-                    )}
+                    
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button size="sm" variant="destructive">

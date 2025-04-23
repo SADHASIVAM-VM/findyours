@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCon } from "../controller/ContextController";
-import { CheckCircle, CircleX, Eye, LogOut, LucideView, MessageCircle, MessageCircleHeart, MessageCircleMore, View, X } from "lucide-react";
+import { CheckCircle, CircleX, Eye, LogOut, LucideView, MessageCircle, MessageCircleHeart, MessageCircleMore, User2, View, X } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -86,7 +86,7 @@ const menuItem =[
               }
 
 <button className="px-6 py-3 bg-[#FFD000] text-black rounded-lg hover:bg-[#FFD000]/90 transition-colors font-medium text-sm" onClick={logout}>
-           <p className="text-[14px]" >{user?"logout":"login"}</p>
+           <p className="text-[14px] flex items-center gap-2" ><User2 size={'18px'}/>{user?"logout":"login"}</p>
             </button>
 
             </div>
@@ -102,9 +102,9 @@ const menuItem =[
            <p className="text-[14px] p-1 font-bold">{user?"logout":"login"}</p>
             </button>
 {/* message Icon */}
-            <div className=" hover:-translate-y-1 hover:border-[#ababab] transition-all " onClick={()=> navigate('/chat')}>
+            {/* <div className=" hover:-translate-y-1 hover:border-[#ababab] transition-all " onClick={()=> navigate('/chat')}>
               <MessageCircleMore color={"#ababab"}/>
-            </div>
+            </div> */}
             {/* Notification Icon */}
             <div className="relative md:order-1 hover:-translate-y-1 mt-2 hover:border-red-300 transition-all ">
             <Sheet>

@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Info,Calendar, CheckCircle, Gift, Grid2X2, MapPin, CircleX } from "lucide-react";
+import { Info,Calendar, CheckCircle, Gift, Grid2X2, MapPin, CircleX, PhoneCall, UserCheck2 } from "lucide-react";
 import useAccess from "../hook/useaccess";
 import Carded from "../component/Carded";
 import { motion } from "framer-motion";
@@ -149,26 +149,25 @@ const View = () => {
           </div>
 
           {/*  Contact Information */}
-          <div className="flex items-center mt-6 space-x-4 bg-gray-50 py-3 px-4 rounded-lg shadow-sm">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>{e.reportedBy?.name?.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-semibold text-sm text-gray-900">{e.contactNumber}</p>
-              <p className="text-gray-500 text-xs">{e.reportedBy?.name}</p>
-            </div>
+          <div className="flex items-center mt-6 justify-between bg-gray-50 py-3 px-4 rounded-lg shadow-sm">
+        
+             
+              <p className="text-sm text-gray-900 flex gap-2 items-center"><UserCheck2 size={'22px'} color="white" className="bg-green-400 rounded-full p-1"/>{e.reportedBy?.name}</p>
+      
           </div>
 
           {/*  Contact Button */}
-          <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md" onClick={()=>{
-
+          <div className="flex gap-2 items-center p-3">
+          <Button className="text-sm flex-1 bg-transparent border hover:bg-white text-black border-gray-900 flex gap-2 items-center"><PhoneCall size={'22px'} />{e.contactNumber}</Button>
+          <Button className=" flex-1 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg shadow-md" onClick={()=>{
+            
             setMessageId({userId:currentUserId[0]?._id, receiverId:e.user_id})
             navigate('/chat')
           }
-            }>
-            Contact Owner
+        }>
+            message
           </Button>
+              </div>
 
         </div>
 

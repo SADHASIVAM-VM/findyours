@@ -12,18 +12,15 @@ import { useCon } from "./controller/ContextController";
 import ReportItem from "./page/ReportItem";
 import PrivateRoute from "./route/privateRoute";
 import Cookies from "js-cookie";
-import {ToastContainer} from'react-toastify'
+import { ToastContainer } from "react-toastify";
 import AboutPage from "./page/About";
 import Navbar from "./component/Navbar";
 import ChatList from "./component/ChatList";
 import ChatComponent from "./component/Chat";
 
 const App = () => {
-  const {user} = useCon()
-  Cookies.set("userLoggedIn", "true",{ expires: 7 });
-  // const local = em !==null &&localStorage.setItem("Localuser",em)
-  // console.log(local)
-
+  const { user } = useCon();
+  Cookies.set("userLoggedIn", "true", { expires: 7 });
   const Router = createBrowserRouter([
     {
       path: "/",
@@ -43,30 +40,24 @@ const App = () => {
           path: "/report",
           element: (
             <PrivateRoute>
-            <ReportItem />
-          </PrivateRoute>
-       
+              <ReportItem />
+            </PrivateRoute>
           ),
         },
         {
           path: "/all",
           element: (
-          
             <PrivateRoute>
-         
-            <AllItems />
-          </PrivateRoute>
-           
+              <AllItems />
+            </PrivateRoute>
           ),
         },
         {
           path: "/view/:id",
           element: (
-       
             <PrivateRoute>
-            <View />
-          </PrivateRoute>
-            
+              <View />
+            </PrivateRoute>
           ),
         },
         {
@@ -81,13 +72,13 @@ const App = () => {
           path: "/chat",
           element: (
             <PrivateRoute>
-              <ChatComponent/>
+              <ChatComponent />
             </PrivateRoute>
           ),
         },
         {
-          path:"/about",
-          element:<AboutPage/>
+          path: "/about",
+          element: <AboutPage />,
         },
         {
           path: "/admin",
@@ -102,21 +93,20 @@ const App = () => {
   ]);
   return (
     <>
-    <ToastContainer
-position="top-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick={false}
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <RouterProvider router={Router} />
     </>
   );
 };
-
 export default App;
