@@ -32,7 +32,7 @@ export default function AllItems() {
   );
 
   return (
-    <div className="p-2 md:p-6 w-[100vw] mx-auto  text-gray-200 min-h-screen">
+    <div className="p-2 w-full md:w-[80vw] mx-auto  text-gray-200 min-h-screen">
       <div className="flex flex-col md:flex-row gap-4  p-4 rounded-lg shadow-md text-white items-center my-10">
         <div className="relative w-full md:w-1/3">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 border-[#717171]" />
@@ -73,9 +73,9 @@ export default function AllItems() {
       </div>
 
       <h1 className="text-white text-2xl font-bold text-left my-5">L&F ITEMS</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 place-content-center w-full items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 place-content-center w-full items-center">
         {filteredItems.length === 0 ? (
-          <p className="col-span-6 flex justify-center items-center h-[300px]">
+          <p className="col-span-3 flex justify-center items-center h-[300px]">
             <img src={"/noresult.png"} alt="No results found" className="object-contain" />
           </p>
         ) : (

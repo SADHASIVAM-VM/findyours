@@ -14,7 +14,7 @@ const Carded = ({ prop: e, index }) => {
   };
 
   return (
-    <div>
+   
       <div 
         key={index} 
         className="bsg-[#1F2937] bg-black border border-[#535353] hover:cursor-pointer transition-all hover:-translate-y-1 p-3 rounded-md text-white flex-shrink-0 relative shadow-lg hover:shadow-xl" 
@@ -42,7 +42,6 @@ const Carded = ({ prop: e, index }) => {
           </p>
         </div>
       </div>
-    </div>
   );
 };
 

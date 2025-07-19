@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronRight, Phone } from "lucide-react";
+import { ChevronRight, Clock, Grid2X2, MapPin, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 // Avatar Component
 const Avatar = ({ src, fallback }) => (
@@ -25,31 +25,33 @@ const FeatureCard = ({ icon, title, description }) => (
 
 // Item Card Component
 const ItemCard = ({ item }) => (
-  <div className="md:w-64 w-full bg-[#FFF7FC] border hover:cursor-pointer transition-all hover:-translate-y-1 p-5 rounded-xl text-black flex-shrink-0 relative">
-    <div className="w-full h-36 mb-3 flex justify-center">
-      <img src={item.images} alt={item.itemName} className="h-full object-cover rounded-lg" />
-    </div>
-    <div className="flex flex-col space-y-2">
-      <h1 className="font-bold text-md md:text-xl">{item.itemName}</h1>
-      <p className="text-xs text-[#3a3a3a]">
-        <span className="font-bold bg-yellow-300 px-2 py-1 rounded-md inline-block mb-1 text-[10px]">{item.category}</span> 
-        <span className="block mt-1 line-clamp-2">{item.description}</span>
-      </p>
 
-      <div className="flex items-center mt-2 space-x-4 bg-[#f3f3f3] py-2 px-1 rounded-lg">
-        <div className="flex gap-2 w-full items-center">
-          <Avatar src="https://github.com/shadcn.png" fallback="CN" />
-          <p className="text-xs">{item.contactOwner}</p>
+  <div 
+        key={item} 
+        className="bsg-[#1F2937] bg-black border border-[#535353] hover:cursor-pointer transition-all hover:-translate-y-1 p-3 rounded-md text-white flex-shrink-0 relative shadow-lg hover:shadow-xl" 
+      >
+        <div className="w-[180px] h-[180px] flex justify-center mx-auto rounded-lg overflow-hidden">
+          <img src={`http://localhost:3000${item.images}`} alt="Item" className="object-cover w-full h-full" loading='lazy' onError={(e)=> e.target.src='https://www.udgamschool.com/wp-content/uploads/2023/05/dummy-image-grey-e1398449111870.jpg'}/>
         </div>
-        <div className="border rounded-full bg-blue-200 border-blue-600 p-1 text-black">
-          <Phone size={20} className="text-blue-600" />
+        <div className="flex flex-col text-start space-y-3 mt-4 bg-[#232323] p-2 rounded-lg">
+          <h1 className="font-bold text-xl text-[#FACC15] truncate">{item.itemName}</h1>
+<div className="flex justify-between">
+<p className='flex gap-2 items-center text-gray-300'><Grid2X2 size={'18px'} color='black' className='bg-[#f4f4f4] p-1 rounded-full '/> {item.category}</p>
+<p className='text-[12px] flex items-center gap-2 mr-3'><Clock color='green' size={'18px'} className='bg-[#f4f4f4] p-1 rounded-full '/> 20/04/2024</p>
+</div>
+          <div className="flex gap-2 items-center">
+          <MapPin size={'18px'} color='red' className='bg-[#f4f4f4] rounded-full p-1'/> 
+          <p className="text-sm text-gray-300 ">salem,TN</p>
+        
+       
+          </div>
+
+          
+          <p className={`${item.itemType === "lost" ? 'bg-red-500 border-red-700' : 'bg-green-500 border-green-700'} text-white font-semibold px-3 py-1 rounded-md top-2 right-2 absolute text-[10px] shadow-md`}> 
+            {item.itemType.toUpperCase()} 
+          </p>
         </div>
       </div>
-      <div className={`${item.itemType === "lost" ? 'bg-red-300 border-red-600' : 'bg-green-300 border-green-500'} text-black font-bold p-2 rounded-md rounded-tr-xl top-1 right-1 absolute text-xs border-2`}>
-        {item.itemType}
-      </div>
-    </div>
-  </div>
 );
 
 
@@ -96,14 +98,6 @@ const FindYoursApp = () => {
       "category": "electronic",
       "contactOwner": "+91 9876543210",
       "images": "https://rukminim2.flixcart.com/image/832/832/ktketu80/mobile/6/n/d/iphone-13-mlpg3hn-a-apple-original-imag6vpyghayhhrh.jpeg?q=70&crop=false"
-    },
-    {
-      "itemName": "Gold Ring",
-      "itemType": "found",
-      "description": "Found a gold ring in the park near the fountain. It has an engraved 'zigzag' inside.",
-      "category": "jewellery",
-      "contactOwner": "+91 9123456789",
-      "images": "https://rukminim2.flixcart.com/image/832/832/l0lbrm80/precious-ring/g/j/5/si-14kt-3-41-mr-np-0098373-kisna-original-imag2zmttpxuszhm.jpeg?q=70&crop=false"
     },
     {
       "itemName": "Driving License",
@@ -205,7 +199,7 @@ const FindYoursApp = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">Recent Found Items</h1>
-          <div className="flex flex-wrap gap-6 justify-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 8 mx-auto w-full md:w-[80vw]">
             {sampleItems.map((item, index) => (
               <ItemCard key={index} item={item} />
             ))}
