@@ -9,7 +9,7 @@ reportRouter.get("/i/:id", singleItem)
 .get('/u/:id',listCurrentUserReport)
 .get('/search', searchItem)
 .get('/', listReport)
-.post('/',upload.single("images"), newReport)
+.post('/',upload.array("images",4), newReport)
 .put('/update/:id',upload.single('images'),updateReport)
 
 module.exports= reportRouter;

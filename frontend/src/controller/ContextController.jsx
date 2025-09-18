@@ -11,13 +11,32 @@ export function ContextApp({children}){
 const em = user&&user.email
 console.log(em)
    
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          setUser(currentUser);
-        });
-     
-        return () => unsubscribe();
-      }, []);
+   useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+    if (currentUser?.email) {
+      currentUserFetch(currentUser.email); // ✅ now fetch details
+    }
+  });
+  return () => unsubscribe();
+}, []);
+
+const currentUserFetch = async(email)=>{
+  try{
+    const response = await fetch(import.meta.env.VITE_PUBLIC_URL+'user/cu?email='+email);
+    const result = await response.json();
+    if(!result){
+      console.log("Email not found");
+    } else {
+      console.log("Fetched user:", result);
+      setCurrentUserId(result.data);
+      localStorage.setItem("currentSenderId" ,result.data[0]._id)
+    }
+  } catch(err){
+    console.log(err);
+  }
+};
+
       const logout = async () => {
         
         try {        
@@ -50,14 +69,11 @@ console.log(em)
 
 
   // chat 
-  const [MessageId, setMessageId] = useState({
-      userId:'',
-      receiverId:''
-     });
+  const [currentMessageReciverId, setCurrentMessageReciverId] = useState("");
 
   const ContextValues ={
         logout,user, setUser,currentUserId, setCurrentUserId,currentUser,
-        getEditReport, setEditReport, MessageId, setMessageId}
+        getEditReport, setEditReport, currentMessageReciverId, setCurrentMessageReciverId}
 
     return(
         <myContext.Provider value={ContextValues}>

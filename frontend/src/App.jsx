@@ -11,16 +11,46 @@ import LoginPage from "./page/Login";
 import { useCon } from "./controller/ContextController";
 import ReportItem from "./page/ReportItem";
 import PrivateRoute from "./route/privateRoute";
-import Cookies from "js-cookie";
 import { ToastContainer } from "react-toastify";
 import AboutPage from "./page/About";
-import Navbar from "./component/Navbar";
-import ChatList from "./component/ChatList";
-import ChatComponent from "./component/Chat";
+import ChatRoom from "./page/ChatRoom";
+import { socket } from "./lib/socket";
 
 const App = () => {
   const { user } = useCon();
-  Cookies.set("userLoggedIn", "true", { expires: 7 });
+  console.log(user)
+
+
+// socket connection 
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  const [fooEvents, setFooEvents] = useState([]);
+
+  useEffect(() => {
+    function onConnect() {
+      setIsConnected(true);
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    function onFooEvent(value) {
+      setFooEvents(previous => [...previous, value]);
+    }
+
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('foo', onFooEvent);
+
+    return () => {
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('foo', onFooEvent);
+    };
+  }, []);
+
+
+
   const Router = createBrowserRouter([
     {
       path: "/",
@@ -33,6 +63,15 @@ const App = () => {
           element: (
             <>
               <Home />
+            </>
+          ),
+        },
+         {
+          index: true,
+          path: "/login",
+          element: (
+            <>
+              <LoginPage/>
             </>
           ),
         },
@@ -72,7 +111,7 @@ const App = () => {
           path: "/chat",
           element: (
             <PrivateRoute>
-              <ChatComponent />
+              <ChatRoom/>
             </PrivateRoute>
           ),
         },

@@ -41,10 +41,7 @@ type:String
   dateLostOrFound: {
     type: Date
   },
-  images: {
-    type: String, // Array of image URLs
-    default: [],
-  },
+  images:[],
   status: {
     type: String,
     enum: ["Open", "Claimed", "Resolved"], // Tracks the item status

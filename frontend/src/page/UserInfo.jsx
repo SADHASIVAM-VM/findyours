@@ -44,18 +44,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="grid lg:grid-cols-3 p-3 gap-6 relative">
+    <div className="grid lg:grid-cols-3 space-y-5 lg:gap-5  p-3 relative">
       {/* User Information */}
       <div className="col-span-1 space-y-5 md:sticky top-5">
-        <Card className="w-[100vw] md:w-full">
+        <Card className=" md:w-full bg-black/30 border-gray-500">
           <CardHeader className="flex flex-row items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarImage src={currentUserData?.avatar || ""} />
               <AvatarFallback>{currentUserData?.name?.charAt(0) || "U"}</AvatarFallback>
             </Avatar>
             <div>
-              <h2 className="text-lg font-semibold">{currentUserData?.name || "Unknown User"}</h2>
-              <p className="text-gray-500">{currentUserData?.email || "No email provided"}</p>
+              <h2 className="text-lg text-white font-semibold">{currentUserData?.name || "Unknown User"}</h2>
+              <p className="text-gray-300">{currentUserData?.email || "No email provided"}</p>
             </div>
             <Button className="ml-auto">
               <Edit className="h-4 w-4 mr-2" /> 
@@ -64,16 +64,16 @@ export default function Dashboard() {
           </CardHeader>
         </Card>
 
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-white p-5 rounded-md">
-            <h1 className="text-xl font-bold text-gray-400">Total Report</h1>
+        <div className="grid grid-cols-3 lg:grid-cols-1 lg:gap-5  gap-2">
+          <div className="bg-yellow-100 p-5 lg:p-7 rounded-md">
+            <h1 className="text-xl font-bold text-black">Total Report</h1>
             <p className="font-bold">{data?.length || 0}</p>
           </div>
-          <div className="bg-green-200 text-green-600 p-5 rounded-md">
+          <div className="bg-green-100 text-green-600 p-5 lg:p-7 rounded-md">
             <h1 className="text-xl font-bold">Found</h1>
             <p className="font-bold">{Fcount.length}</p>
           </div>
-          <div className="bg-red-200 text-red-600 p-5 rounded-md">
+          <div className="bg-red-100 text-red-600 p-5 lg:p-7 rounded-md">
             <h1 className="text-xl font-bold">Lost</h1>
             <p className="font-bold">{Lcount.length}</p>
           </div>
@@ -81,8 +81,8 @@ export default function Dashboard() {
       </div>
 
       {/* My Reports */}
-      <div className="col-span-2">
-        <Card className="mb-6">
+      <div className="col-span-2 ">
+        <Card className="mb-6 h-[300px] bg-yellow-50 border-0">
           <CardHeader>
             <CardTitle>My Reports</CardTitle>
           </CardHeader>
@@ -118,7 +118,7 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500">No reports yet.</p>
+              <p className="text-gray-500 text-center">No reports yet.</p>
             )}
           </CardContent>
         </Card>
@@ -142,7 +142,7 @@ export default function Dashboard() {
               <span>Enable Notifications</span>
               <Switch checked={notifications} onCheckedChange={setNotifications} />
             </div>
-            <Button variant="destructive" className="w-full flex items-center">
+            <Button variant="destructive" className="w-full lg:w-72 flex items-center">
               <Trash2 className="h-4 w-4 mr-2" /> Delete Account
             </Button>
           </CardContent>

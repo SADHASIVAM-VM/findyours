@@ -17,7 +17,7 @@ const [heightt, setHeight] = useState(false)
 
   const {data:listings} = useAccess('item')
   const {data:users} = useAccess('user')
-  const monthh = (listings.map((e)=> new Date(e.updatedAt).toUTCString().split(',')[1].split(' ')[2]))
+  // const monthh = (listings.map((e)=> new Date(e?.updatedAt)?.toUTCString()?.split(',')[1]?.split(' ')[2]))
   
 
 
@@ -98,7 +98,8 @@ const formatDate = (postDate) => {
                 <TableRow key={listing.id}>
                   <TableCell>{listing.itemName}</TableCell>
                   <TableCell>{listing.reportedBy.name}</TableCell>
-                  <TableCell>{formatDate(listing.updatedAt)}</TableCell>
+                  {/* <TableCell>{formatDate(listing.updatedAt)}</TableCell> */}
+                  <TableCell>1/2/09</TableCell>
                   <TableCell>
                     <Badge variant="outline" className={
                       listing.status === "closed" ? "bg-yellow-200 text-yellow-700" :

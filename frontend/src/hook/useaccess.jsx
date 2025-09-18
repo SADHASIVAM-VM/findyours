@@ -14,7 +14,7 @@ export default  function useAccess(endpoint) {
         const result = await response.json();
         
        if(response.ok){
-        setData(result.data)
+       setData(result.data)
        }
         setError(null);  // Reset error if successful
       } catch (err) {

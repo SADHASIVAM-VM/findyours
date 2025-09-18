@@ -8,15 +8,17 @@ import { useState, useEffect } from "react";
 const PrivateRoute = ({ children }) => {
     const { user } = useCon();
     const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-      
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 300);
-
-        return () => clearTimeout(timer);
-    }, [user]);
+    
+   const storedUser = JSON.parse(localStorage.getItem("user"));
+    
+useEffect(() => {
+  if (user) {
+    localStorage.setItem("user", JSON.stringify(user));
+    setLoading(false)
+  } else {
+    localStorage.removeItem("user");
+  }
+}, [user]);
 
     if (loading) {
         return (
@@ -26,7 +28,10 @@ const PrivateRoute = ({ children }) => {
         );
     }
 
-    return user ? children : <LoginPage />;
+
+
+
+return (storedUser || user) ? children : <LoginPage />;
 };
 
 export default PrivateRoute;

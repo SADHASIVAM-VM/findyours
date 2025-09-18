@@ -6,22 +6,24 @@ const { findMatchingLostItems, findMatchingFoundItems } = require("./notificaton
 
 const newReport = async (req, res) => {
     
-    console.log(req.file)
+    console.log("//////////////////////   ////////",req.files)
+
+
     try {
-        if (!req.file) {
+      
+        if (!req.files) {
             return res.status(400).json({ success: false, message: "Image is required" });
             }
-            const filePaths = `/uploads/${req.file.filename}`
-            console.log(filePaths)
-            console.log({ message: "Files uploaded successfully", files: filePaths });
-          
+        const imgs = [];
+        req.files.map(e=> imgs.push(e.path))
+        
 
         const { user_id, itemType, itemName, description, category, location, reward, dateLostOrFound,contactNumber, status, reportedBy, claimedBy, isVerified } = req.body;
 
         // Ensure required fields are provided (Basic Validation)
-        if (!user_id || !itemType || !itemName || !description || !category || !location) {
-            return res.status(400).json({ msg: "Missing required fields" });
-        }
+        // if (!user_id || !itemType || !itemName || !description || !category || !location) {
+        //     return res.status(400).json({ msg: "Missing required fields" });
+        // }
 
         // Create a new report
         const newreport = new reportModel({
@@ -33,7 +35,7 @@ const newReport = async (req, res) => {
             location,
             reward,
             dateLostOrFound,
-            images:filePaths,
+            images:imgs,
             status,
             reportedBy,
             claimedBy,
