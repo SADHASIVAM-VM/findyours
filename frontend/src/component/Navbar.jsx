@@ -61,7 +61,7 @@ const menuItem =[
         <div className="flex justify-between items-center h-16">
           {/* Div 1 - Logo */}
           <div className="flex-shrink-0 text-md logoh1 font-bold text-yellow-400">
-           <Link to={'/'} className="flex items-center"><img src="/Paper.png" className="w-24 h-10 object-contain" /> </Link> 
+           <Link to={'/'} className="flex items-center"><img src="/lg0.png" className="h-16 rounded-full object-contain" /> </Link> 
           </div>
 
           {/* Div 2 - Menu Items */}
@@ -69,7 +69,7 @@ const menuItem =[
           {
                menuItem.map((e)=>(
                     <a href={e.link} key={e.link} className={`hover:text-blue-600 font-medium ${selectedMenu == e.link ? "text-[#e5ff75]":'text-white '}`} 
-                    onClick={()=> console.log("//////////////////////////e.link")}>{e.path}</a>
+                   >{e.path}</a>
 
                   ))
               }

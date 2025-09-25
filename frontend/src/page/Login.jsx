@@ -1,110 +1,112 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AlertCircle, Facebook, GithubIcon, MailPlus } from "lucide-react";
-import { Switch } from "@/components/ui/switch"
-import {Alert,AlertDescription,AlertTitle,} from "@/components/ui/alert"
+import { Switch } from "@/components/ui/switch";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../util/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useCon } from "../controller/ContextController";
 import { toast } from "react-toastify";
-const LoginPage = () => {
-    const {user, setUser} = useCon()
-    const [formData, setFormData] = useState({
-        email:"",
-        password:"",
-        name:""
-    });
-    const [Eror, setEror] = useState(false)
-    const [Loading, setLoading] = useState(false)
-    const [mode, setMode]=useState(false);
 
-function handleChange(e){
-    const {name, value} = e.target;
-    
-        setFormData({...formData, [name]:value})
-}
-async function onSubmit(){
+const LoginPage = () => {
+  const { user, setUser } = useCon();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+  const [Eror, setEror] = useState(false);
+  const [Loading, setLoading] = useState(false);
+  const [mode, setMode] = useState(false);
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
+  async function onSubmit() {
     try {
-        if (!mode) {
-          await login();
-        } else {
-          await signUp();
-          const setReg =async()=>{
-           
-           try{
-            setLoading(true)
-            await fetch(import.meta.env.VITE_PUBLIC_URL+'user',{
-              method:"POST",
-              headers:{
-               "Content-Type":"application/json"
+      if (!mode) {
+        await login();
+      } else {
+        await signUp();
+        const setReg = async () => {
+          try {
+            setLoading(true);
+            await fetch(import.meta.env.VITE_PUBLIC_URL + "user", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
               },
-              body:JSON.stringify(formData)
-            })
-            
-            setLoading(false)
-           }
-           catch(err){
-            
-            console.log("registration error", err)
-           }
+              body: JSON.stringify(formData),
+            });
+            setLoading(false);
+          } catch (err) {
+            console.log("registration error", err);
           }
-            setReg();
-        }
-      } catch (error) {
-        setLoading(false)
-        setEror(true)
-        setErrorMessage(error.message);
+        };
+        setReg();
       }
-      finally{
-        setLoading(false)
-      }}
+    } catch (error) {
+      setLoading(false);
+      setEror(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // Sign Up
   const signUp = async () => {
     try {
-     setLoading(true)
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
       setUser(userCredential.user);
-     if(userCredential.user !==undefined)  {
-      setLoading(false)
-      toast.success("sigup successfully")}
-    else{
-      toast.error('sigup unsuccessfully')
-    }
-      console.log("User Signed Up:", userCredential.user);
+      if (userCredential.user !== undefined) {
+        setLoading(false);
+        toast.success("Signup successfully");
+      } else {
+        toast.error("Signup failed");
+      }
     } catch (error) {
-      setLoading(false)
-      toast.error('auth/email-already-in-use')
-      console.error("Error Signing Up:", error);
-    }
-    finally{
-      setEror(false)
-      setLoading(false)
+      setLoading(false);
+      toast.error("auth/email-already-in-use");
+    } finally {
+      setEror(false);
+      setLoading(false);
     }
   };
 
   // Login
   const login = async () => {
     try {
-      setLoading(true)
-      const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      setLoading(true);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
       setUser(userCredential.user);
-      console.log("User Logged In:", userCredential.user);
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
-      setEror(true)
-      console.error("Error Logging In:", error);
-    }
-    finally{
-      setLoading(false)
+      setLoading(false);
+      setEror(true);
+    } finally {
+      setLoading(false);
     }
   };
-  const googleProvider = new GoogleAuthProvider();
 
-//   google 
+  // Google
+  const googleProvider = new GoogleAuthProvider();
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -113,66 +115,122 @@ async function onSubmit(){
       console.error("Error with Google Sign-In:", error.message);
     }
   };
+
   return (
-    <div className=" h-[90vh] p-5 relative">
-    <div className="flex bg-[#f2f2f2] gap-5  rounded-lg justify-center h-full w-full p-3">
-    
-      <div
-        className="md:w-2/3 hidden rounded-lg md:flex bg-cover bg-center"
-        style={{ backgroundImage: "url('/loginImg.png')" }}
-      ></div>
-      
-      {/* Form */}
-      <div className="md:w-1/3 h-full w-full flex flex-col items-center justify-center relative">
-      <div className="flex w-full justify-start absolute top-0">
-<div className="flex gap-2 text-[12px] bg-white p-3 rounded-lg ">
-        <p>login</p>
-        <Switch onCheckedChange={(e)=>setMode(e)} />
-        <p>SignUp</p>
-      </div>
+    <div className="h-[600px]  relative flex items-center  justify-center   p-4">
+
+
+
+<div className="absolute top-0 left-0 z-0 h-full w-full ">
+  <img src="https://tpkwireless.com/wp-content/uploads/2024/06/DALL%C2%B7E-2024-06-10-17.45.08-A-collage-of-various-tech-gadgets-of-2024-including-smart-home-devices-wearables-audio-devices-and-personal-mobility-devices.-The-image-should-be-.webp" className="object-center object-cover h-full w-full" alt="" />
 </div>
-        <Card className="w-full border-none shadow-none bg-[#f2f2f2]  p-6 transition-all">
-          <CardContent className="space-y-4">
-            <h2 className="text-2xl font-semibold text-center">{!mode?"LogIn":"Sign up"}</h2>
-            <Input type="email" name="email" placeholder="Email" className="w-full rounded-none border-black " value={formData.email} onChange={handleChange}/>
-            <Input type="password" name="password" placeholder="Password" value={formData.password}  onChange={handleChange} className="w-full rounded-none border-black 
-           " />
-           {
-            mode&&<Input  name="name" placeholder="user name" className="w-full rounded-none border-black " value={formData.name} onChange={handleChange}/>
-           }
-
-            <Button className="w-full" onClick={onSubmit}>
-                {!mode?"Login":"Sign up"}
-</Button>      
-            {/* Social Login */}
-            <div className="flex flex-col justify-center space-x-4 pt-4">
-                <div className="flex w-full items-center gap-2">
-                    <hr className="border-[#cbcbcb] border flex-1" />
-                    <p>continue with</p>
-                    <hr className="border-[#cbcbcb] border flex-1" />
-                </div>
-            
-            <div className="flex gap-2 justify-center mt-5">
-            <MailPlus size={'28px'} className=" cursor-pointer border-[#cbcbcb] border rounded-full p-1 hover:text-blue-500 transition-all hover:-translate-y-1.5" onClick={signInWithGoogle}/>
-            <Facebook size={'28px'} className=" border-[#cbcbcb] border rounded-full p-1 cursor-pointer hover:text-blue-500 transition-all hover:-translate-y-1.5" />
-            <GithubIcon size={'28px'} className=" cursor-pointer border-[#cbcbcb] border rounded-full p-1  hover:text-blue-500 transition-all hover:-translate-y-1.5" />
-            </div>
-            </div>
-          </CardContent>
-        </Card>
-
-{/* error validatation */}
-     { Eror&&<Alert variant="destructive" className="bg-red-100 w-full">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Unathorized</AlertTitle>
-      <AlertDescription>
-        Your Email or Password is Wrong. Please log in again.
-      </AlertDescription>
-    </Alert>}
+      
+      {/* overlay */}
+      <div className="absolute bg-black/50 z-10  top-0 left-0 h-full w-full ">
       </div>
+
+   
+
+   <Card className="w-full max-w-md shadow-xl z-30  bg-white rounded-xl">
+        <CardHeader className="inline-flex  flex-col  justify-start  space-y-2">
+          <div className="flex items-center gap-2 text-sm bg-[#454545] w-max p-2 rounded-xl">
+            <span className={!mode ? "font-semibold text-white" : "text-gray-300"}>
+              Login
+            </span>
+            <Switch checked={mode}  onCheckedChange={setMode} />
+            <span className={mode ? "font-semibold text-white" : "text-gray-300"}>
+              Sign Up
+            </span>
+          </div>
+          <h2 className="text-3xl text-[#fa771f] font-semibold text-center">
+            {mode ? "Create Account" : "Welcome Back"}
+          </h2>
+          <p className="text-sm text-gray-600 text-center">
+            {mode ? "Sign up to get started 🚀" : "Login to continue 🔑"}
+          </p>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="rounded-md h-11"
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="rounded-md h-11 "
+          />
+          {mode && (
+            <Input
+              name="name"
+              placeholder="Username"
+              value={formData.name}
+              onChange={handleChange}
+              className="rounded-md h-11"
+            />
+          )}
+
+          <Button
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            onClick={onSubmit}
+          >
+            {mode ? "Sign Up" : "Login"}
+          </Button>
+
+          {/* Divider */}
+          <div className="flex items-center gap-2 my-4">
+            <hr className="flex-1 border-gray-300" />
+            <span className="text-sm text-gray-700">or continue with</span>
+            <hr className="flex-1 border-gray-300" />
+          </div>
+
+          {/* Social Login */}
+          <div className="flex justify-center gap-4">
+            <MailPlus
+              size={32}
+              className="cursor-pointer border border-gray-300 rounded-full p-2 bg-blue-50 hover:text-blue-600 transition"
+              onClick={signInWithGoogle}
+            />
+            <Facebook
+              size={32}
+              className="cursor-pointer border border-gray-300  rounded-full p-2 bg-blue-50 hover:text-blue-600 transition"
+            />
+            <GithubIcon
+              size={32}
+              className="cursor-pointer border border-gray-300 rounded-full p-2 bg-blue-50 hover:text-gray-800 transition"
+            />
+          </div>
+
+          {/* Error */}
+          {Eror && (
+            <Alert variant="destructive" className="mt-4 bg-white">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Unauthorized</AlertTitle>
+              <AlertDescription>
+                Your email or password is incorrect. Please try again.
+              </AlertDescription>
+            </Alert>
+          )}
+        </CardContent>
+      </Card>
+
+
+
+      {/* Loader Overlay */}
+      {Loading && (
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <p className="loader"></p>
+        </div>
+      )}
     </div>
-   {Loading&&<div className="absolute top-0 bg-black/30 h-full w-full flex justify-center items-center">
-      <p className="loader"></p>
-    </div>}
-    </div>);};
+  );
+};
+
 export default LoginPage;

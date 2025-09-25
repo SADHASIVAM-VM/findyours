@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Search, MapPin, Bell, Users, Slack, Slash, Eye } from "lucide-react";
+import { Search, MapPin, Bell, Users, Slack, Slash, Eye, Repeat } from "lucide-react";
 import Testimonials from "../component/Testimonial";
 import HowItHelps from "../component/Features";
 import TrustSection from "../component/Trust";
@@ -25,20 +25,20 @@ const navigate = useNavigate()
     <div className="bg-black text-white font-sans">
       {/* Hero */}
       <section className="relative text-center bg-[url('/herobg.svg')] md:py-24 px-6 overflow-hidden">
-        <h2 className="text-2xl sm:text-4xl  md:text-6xl lg:text-8xl font-medium mb-4 bg-gradient-to-b from-gray-100 via-gray-300 to-[#e5ff75] text-clip text-transparent bg-clip-text">
+        <h2 className="text-3xl sm:text-4xl  md:text-6xl lg:text-8xl font-semibold mb-4 bg-gradient-to-b from-gray-100 via-gray-300 to-[#e5ff75] text-clip text-transparent bg-clip-text">
           Lost it? Found it? <br /> <span className="font">Get it back, together.</span>
         </h2>
-        <p className="md:text-md md:text-lg text-gray-300 max-w-2xl mx-auto mb-8">
+        <p className="text-sm md:text-md md:text-lg text-gray-300 max-w-2xl mx-auto mb-8">
           FindYour’s is the simplest way to reunite people with their lost belongings. 
           Over <span className="font-semibold text-[#e5ff75]">1000+ items</span> returned successfully.
         </p>
        
        <div className=" gap-3 flex mx-auto justify-center items-center">
-         <button className="text-sm md:text-md  px-6 py-3 bg-[#1b1b1b] hover:bg-[#e5ff75] hover:text-black font-semibold rounded-md  transition" onClick={()=> navigate('/report')}>
+         <button className="text-sm md:text-md  px-6 py-3 bg-[#ff0000]  hover:bg-[#e5ff75] hover:text-black font-semibold rounded-md  transition" onClick={()=> navigate('/report')}>
           Lost
         </button>
-<Slack className="text-[#75ffcf]"/>
- <button className="text-sm md:text-md  px-6 py-3 bg-[#1b1b1b] hover:text-black font-semibold rounded-md hover:bg-[#e5ff75] transition" onClick={()=> navigate('/report')}>
+<Repeat className="text-[#75ffcf]"/>
+ <button className="text-sm md:text-md  px-6 py-3 bg-[#48ff00] text-black font-semibold rounded-md hover:bg-[#e5ff75] transition" onClick={()=> navigate('/report')}>
           Found
         </button>
 

@@ -22,14 +22,14 @@ const Carded = ({ prop: e, index }) => {
         onClick={() => navigate('/view/' + e._id)}
       >
         <div className="w-[180px] h-[180px] flex justify-center mx-auto rounded-lg overflow-hidden">
-          <img src={import.meta.env.VITE_PUBLIC_URL+e?.images[0] || e.images} alt="Item" className="object-cover w-full h-full" loading='lazy' onError={(e)=> e.target.src='https://www.udgamschool.com/wp-content/uploads/2023/05/dummy-image-grey-e1398449111870.jpg'}/>
+          <img src={e?.images[0] || e.images} alt="Item" className="object-cover w-full h-full" loading='lazy' onError={(e)=> e.target.src='https://www.udgamschool.com/wp-content/uploads/2023/05/dummy-image-grey-e1398449111870.jpg'}/>
         </div>
         <div className="flex flex-col text-start space-y-3 mt-4 bg-[#232323] p-2 rounded-lg">
           <h1 className="font-bold text-xl text-[#feeca1f4] truncate">{e.itemName}</h1>
 <div className="flex justify-between">
 <p className='flex gap-2 items-center text-gray-300'><Grid2X2 size={'18px'} color='black' className='bg-[#f4f4f4] p-1 rounded-full '/> {e.category}</p>
-{/* <p className='text-[12px] flex items-center gap-2 mr-3'><Clock color='green' size={'18px'} className='bg-[#f4f4f4] p-1 rounded-full '/> {formatDate(e?.updatedAt)}</p> */}
-<p className='text-[12px] flex items-center gap-2 mr-3'><Clock color='green' size={'18px'} className='bg-[#f4f4f4] p-1 rounded-full '/> 20/4/21</p>
+<p className='text-[12px] flex items-center gap-2 mr-3'><Clock color='green' size={'18px'} className='bg-[#f4f4f4] p-1 rounded-full '/> {formatDate(e?.updatedAt)}</p>
+
 </div>
           <div className="flex gap-2 items-center">
           <MapPin size={'18px'} color='red' className='bg-[#f4f4f4] rounded-full p-1'/> 

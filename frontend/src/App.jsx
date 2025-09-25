@@ -66,15 +66,6 @@ const App = () => {
             </>
           ),
         },
-         {
-          index: true,
-          path: "/login",
-          element: (
-            <>
-              <LoginPage/>
-            </>
-          ),
-        },
         {
           path: "/report",
           element: (

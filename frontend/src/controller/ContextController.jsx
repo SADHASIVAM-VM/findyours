@@ -14,6 +14,7 @@ console.log(em)
    useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
+   
     if (currentUser?.email) {
       currentUserFetch(currentUser.email); // ✅ now fetch details
     }

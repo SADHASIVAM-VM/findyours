@@ -6,7 +6,7 @@ const Layout = () => {
   return (
 <>
     <nav>
-       <div className="mb-5 md:w-[90vw] mx-auto ">
+       <div className="mb-2 md:w-[90vw] mx-auto ">
        <Navbar/>
        </div>
     </nav>
@@ -19,7 +19,7 @@ const Layout = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/logo.svg" className='w-12  ' alt="" />
+                <img src="/lg0.png" className='w-24  ' alt="" />
               </div>
               <p className="text-gray-300 text-sm md:text-md max-w-md">
                 Helping people find and recover lost items through a community-driven platform.

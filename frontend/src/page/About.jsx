@@ -108,14 +108,14 @@ export const MissionVision = () => {
         
         {/* Section Label */}
         <div className="flex justify-center">
-          <span className="px-4 py-1 text-xs sm:text-sm rounded-full bg-gray-900 border shadow-sm">
+          <span className="px-4 py-1 text-xs sm:text-sm text-white rounded-full bg-gray-900 border shadow-sm">
             Who We Are
           </span>
         </div>
 
         {/* Title */}
-        <h2 className="text-3xl md:text-4xl  text-black text-center mt-6">
-          More than a platform — <br /> we’re a movement of trust
+        <h2 className="text-3xl md:text-4xl  text-black text-center font-semibold mt-6">
+          More than a platform <br /> we’re a movement of trust
         </h2>
         <p className="text-center text-gray-800 mt-4 max-w-2xl mx-auto">
           Lost & Found is not just about missing items. It’s about kindness, 
@@ -123,11 +123,11 @@ export const MissionVision = () => {
         </p>
 
         {/* Mission / Vision / Values */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
+        <div className="grid md:grid-cols-3 grid-rows-2 gap-8 mt-16">
           {points.map((p, i) => (
             <div
               key={i}
-              className="flex flex-col items-center text-center bg-white border rounded-2xl shadow-sm p-8 hover:shadow-md transition"
+              className={`flex flex-col items-center text-center bg-white border rounded-2xl shadow-sm p-8 hover:shadow-md transition ${i%2 == 0 ? 'col-span-2 row-span-1':'col-span-1 row-span-2'}`}
             >
               <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#353535] mb-4">
                 {p.icon}

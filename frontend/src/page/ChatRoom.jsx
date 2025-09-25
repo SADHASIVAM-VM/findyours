@@ -110,7 +110,7 @@ const ChatRoom = () => {
       {/* Mobile toggle bar */}
       <div className="flex lg:hidden justify-between items-center py-3 border-b border-gray-700">
         <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-          <UsersIcon className="w-6 h-6" /> Chat Room
+          <UsersIcon className="w-6 h-6" /> Chats
         </h2>
         <button onClick={() => setShowMembers(!showMembers)} className="text-white">
           {showMembers ? <XMarkIcon className="w-7 h-7" /> : <UsersIcon className="w-7 h-7" />}
@@ -124,6 +124,8 @@ const ChatRoom = () => {
         } lg:block border-r border-gray-700 h-full p-3 bg-black rounded-md`}
       >
         <ul className="flex flex-col gap-2">
+
+          <h2 className="text-xl font-semibold text-white">Members</h2>
           {members.map((m) => (
             <li
               key={m.userId}
@@ -153,20 +155,29 @@ const ChatRoom = () => {
       </div>
 
       {/* Chat window */}
-      <div className="lg:col-span-3 bg-[url('https://img.freepik.com/free-vector/abstract-chat-box-shape-pattern-white-background_1017-59690.jpg?semt=ais_incoming&w=740&q=80')] bg-no-repeat bg-cover  bg-opacity-5 flex-1 border border-gray-700 overflow-hidden w-full rounded-md flex flex-col bg-white">
+      <div className="lg:col-span-3 bg-[url('https://i.pinimg.com/736x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg')]  bg-contain  bg-opacity-5 flex-1 border border-gray-700 overflow-hidden w-full rounded-md flex flex-col bg-white">
         {/* Header */}
         <div className="p-4 border-b border-gray-700 text-black font-semibold bg-white/80 flex items-center gap-3">
           <UserCircleIcon className="w-7 h-7 text-red-400" />
           <span className="capitalize">
-            Chatting with{" "}
+            Chatting with{" "} 
             <span className="font-light text-sm bg-black p-1 rounded-md text-[#e4ff75]">
-              {activeUser}
+              {activeUser || "🤖"}
             </span>
           </span>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto p-4 relative">
+
+          {
+            !activeUser && (<><div className="bg-black/60 absolute top-0 left-0  w-full h-full">
+
+          </div>
+
+          <h2 className="text-white text-3xl w-full h-full flex justify-center items-center absolute top-0 left-0 ">select a Users</h2>
+  </>)
+          }
           <div className="flex flex-col max-w-3xl mx-auto gap-3">
             {displayMessage?.map((msg, i) => (
               <div key={i} className="w-full">

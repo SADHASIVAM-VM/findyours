@@ -47,7 +47,7 @@ const Testimonials = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl text-black  text-center mt-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl text-black font-semibold  text-center mt-6">
           People just like you <br />
           are already using <span className="text-[#e5ff75] bg-black px-2 rounded-md">FindYour’s</span>
         </h2>
@@ -55,7 +55,7 @@ const Testimonials = () => {
         {/* Cards */}
         <div className="grid md:grid-cols-3 md:grid-rows-3 gap-6 mt-12">
           {/* Card 1 */}
-          <div className="bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
+          <div className="sticky md:relative top-2 bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
             <p className="text-gray-700 text-sm mb-4">
               “{testimonials[0].text}”
             </p>
@@ -73,7 +73,7 @@ const Testimonials = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="bg-white border rounded-2xl row-span-1 shadow-sm p-6 flex flex-col justify-between">
+          <div className="sticky md:relative top-2 bg-white border rounded-2xl row-span-1 shadow-sm p-6 flex flex-col justify-between">
             <p className="text-gray-700 text-sm mb-4">
               “{testimonials[1].text}”
             </p>
@@ -91,7 +91,7 @@ const Testimonials = () => {
           </div>
 
           {/* Card 3 */}
-          <div className="bg-white border rounded-2xl row-span-1 shadow-sm p-6 flex flex-col justify-between">
+          <div className="sticky md:relative top-2 bg-white border rounded-2xl row-span-1 shadow-sm p-6 flex flex-col justify-between">
             <p className="text-gray-700 text-sm mb-4">
               “{testimonials[2].text}”
             </p>
@@ -108,7 +108,7 @@ const Testimonials = () => {
           </div>
 
           {/* Card 4 */}
-          <div className="bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
+          <div className="sticky md:relative top-2 bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
             <p className="text-gray-700 text-sm mb-4">
               “{testimonials[3].text}”
             </p>
@@ -125,7 +125,7 @@ const Testimonials = () => {
           </div>
 
           {/* Card 5 */}
-          <div className="bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
+          <div className="sticky md:relative top-2 bg-white border rounded-2xl row-span-2 shadow-sm p-6 flex flex-col justify-between">
             <p className="text-gray-700 text-sm mb-4">
               “{testimonials[4].text}”
             </p>
@@ -142,7 +142,7 @@ const Testimonials = () => {
           </div>
 
           {/*card 6*/}
-          <div className="relative rounded-2xl flex-col py-7 gap-4 overflow-hidden shadow-md bg-black text-white flex items-center justify-center">
+          <div className="sticky md:relative top-2 rounded-2xl flex-col py-7 gap-4 overflow-hidden shadow-md bg-black text-white flex items-center justify-center">
           <div className="flex gap-1">
             <h1 className="text-6xl font-bold">100+</h1>
             <p className="self-baseline mt-6 text-sm">testimonials</p>

@@ -91,7 +91,7 @@ console.log(data)
                       <div className="relative">
                         <div className="border border-gray-300  lg:rounded-lg bg-gray-50 flex justify-center items-center overflow-hidden h-72 md:h-96">
                           <img
-                            src={import.meta.env.VITE_PUBLIC_URL+e.images[activeImage]}
+                            src={e.images[activeImage]}
                             alt={e.itemName}
                             className="w-full h-full object-contain"
                             loading="lazy"

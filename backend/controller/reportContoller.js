@@ -2,21 +2,22 @@
 const { mongo } = require("mongoose");
 const reportModel = require("../model/reportItemModel");
 const { findMatchingLostItems, findMatchingFoundItems } = require("./notificatonController");
+const cloudinary = require('../util/cloudnairyUpload')
 
 
 const newReport = async (req, res) => {
     
-    console.log("//////////////////////   ////////",req.files)
-
-
     try {
       
-        if (!req.files) {
-            return res.status(400).json({ success: false, message: "Image is required" });
-            }
-        const imgs = [];
-        req.files.map(e=> imgs.push(e.path))
+        const uploadPromises = req.files.map(file =>
+      cloudinary.uploader.upload(file.path, { folder: "Findyours" })
+    );
         
+    const result_image = await Promise.all(uploadPromises)
+    const imgs_url = []
+
+    result_image.map(e=> imgs_url.push(e.url))
+
 
         const { user_id, itemType, itemName, description, category, location, reward, dateLostOrFound,contactNumber, status, reportedBy, claimedBy, isVerified } = req.body;
 
@@ -35,7 +36,7 @@ const newReport = async (req, res) => {
             location,
             reward,
             dateLostOrFound,
-            images:imgs,
+            images:imgs_url,
             status,
             reportedBy,
             claimedBy,

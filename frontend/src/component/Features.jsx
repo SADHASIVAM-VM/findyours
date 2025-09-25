@@ -37,10 +37,10 @@ const HowItHelps = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-xl sm:text-3xl md:text-4xl font text-center mt-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mt-6">
           How FindYour’s makes it easier <br /> for the public
         </h2>
-        <p className="text-center text-gray-300 mt-4 max-w-2xl mx-auto">
+        <p className="text-sm md:text-md md:text-lg text-center max-w-2xl mx-auto text-gray-300 mt-4">
           From posting lost items to reconnecting with their owners, FindYour’s streamlines the process with a simple, modern, and trustworthy platform.
         </p>
 

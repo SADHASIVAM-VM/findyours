@@ -37,7 +37,7 @@ const TrustSection = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font text-center mt-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl  font-semibold  text-center mt-6">
           A platform built on <br /> trust and safety
         </h2>
         <p className="text-center text-sm md:text-md text-gray-300 mt-4 max-w-2xl mx-auto">
