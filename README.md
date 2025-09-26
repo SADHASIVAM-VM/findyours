@@ -15,6 +15,10 @@ FindYours is a MERN-based web application that connects people who have lost ite
 
 🔍 Search & filter items by name, last location, and date
 
+💬 Connect with chat
+
+🔔 Push notifications for item matches
+
 🖼️ Image upload support (for better identification)
 
 🛡️ Secure & scalable backend with Express + MongoDB
@@ -27,7 +31,7 @@ Frontend: React.js
 Backend: Node.js + Express.js
 Database: MongoDB Atlas
 Authentication: Firebase Auth
-Hosting: Vercel (Frontend) / Heroku or AWS (Backend)
+Hosting: Vercel (Frontend) / Render (Backend)
 
 📂 Project Structure
 FindYours/
@@ -99,6 +103,8 @@ Frontend → http://localhost:3000
 
 Backend → http://localhost:5000
 
+Chat server → http://localhost:free port (5137)
+
 🔒 Security
 
 Firebase Authentication for secure login
@@ -117,8 +123,8 @@ Admin role for moderation
 
 🤖 AI-based image recognition for item matching
 
-🔔 Push notifications for item matches
-
 🤝 Contributing
 
 Contributions are welcome! Please fork the repo and submit a pull request.
+
+
