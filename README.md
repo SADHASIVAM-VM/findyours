@@ -1,200 +1,124 @@
-FindYours – Missing Items Finder Platform
-1. Project Overview
 
-FindYours is a community-driven platform designed to help individuals locate lost belongings with the assistance of the public. The system allows users to report missing items or upload details of found items. Through a searchable interface, users can filter items by name, location, and date to improve chances of recovery.
+🕵️‍♂️ FindYours
 
-By leveraging crowdsourcing, FindYours creates a collaborative ecosystem where the public helps each other reunite with their valuable possessions.
+A community-driven platform to help people find their lost items with the power of public collaboration.
 
-2. Objectives
+🚀 Overview
 
-Provide a centralized platform for reporting and searching lost/found items.
+FindYours is a MERN-based web application that connects people who have lost items with those who find them in public. Users can post details of lost or found items, and others can search by item name, location, and date. Authentication and secure access are handled via Firebase.
 
-Utilize public participation to enhance item recovery success rates.
+✨ Features
 
-Enable easy search and filter functionality by location, date, and item name.
+🔑 Firebase Authentication (Email/Google sign-in)
 
-Ensure secure user access through Firebase authentication.
+📝 Post lost or found items with name, description, image, and location
 
-Deliver a responsive and intuitive MERN-based web application.
+🔍 Search & filter items by name, last location, and date
 
-3. Key Features
-3.1 User Features
+🖼️ Image upload support (for better identification)
 
-User Authentication (Firebase):
+🛡️ Secure & scalable backend with Express + MongoDB
 
-Secure sign-up/login via email, Google, or social accounts.
+👩‍💻 Admin moderation for duplicate/inappropriate entries
 
-Role-based access (e.g., item reporter vs. general user).
-
-Report Lost/Found Items:
-
-Upload item details (name, description, last seen date, location, image).
-
-Public posting of found items with optional contact details.
-
-Search & Filter:
-
-Search items by keywords (item name, description).
-
-Filter by last location and date range.
-
-Notifications (optional extension):
-
-Alert when items matching user’s lost report are posted.
-
-3.2 Admin Features
-
-Moderate and verify suspicious posts.
-
-Manage inappropriate or duplicate entries.
-
-Analytics dashboard for monitoring user activity.
-
-4. System Architecture
-4.1 Tech Stack
+🛠️ Tech Stack
 
 Frontend: React.js
-
-Backend: Node.js with Express.js
-
-Database: MongoDB (for scalable storage of items and user data)
-
-Authentication: Firebase Authentication (JWT integration)
-
-Hosting:
-
-Frontend: Vercel / Netlify
-
-Backend: Heroku / AWS EC2
-
+Backend: Node.js + Express.js
 Database: MongoDB Atlas
+Authentication: Firebase Auth
+Hosting: Vercel (Frontend) / Heroku or AWS (Backend)
 
-4.2 Architecture Diagram
+📂 Project Structure
+FindYours/
+├── frontend/               # React frontend
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       └── utils/
+├── backend/               # Express backend
+│   ├── models/           # MongoDB schemas
+│   ├── routes/           # API routes
+│   ├── controllers/      # Business logic
+│   └── backend.js
+├── .env.example          # Environment variables sample
+├── package.json
+└── README.md
 
-(Textual representation, can be illustrated if needed)
+⚙️ Installation & Setup
+Prerequisites
 
-[ Client (React.js) ]  <--->  [ Express.js + Node.js Backend ]  <--->  [ MongoDB Atlas ]
-                \                                           /
-                 \                                         /
-                  -------- [ Firebase Authentication ] -----
+Node.js & npm
 
-5. Database Design
-Collections:
+MongoDB Atlas account
 
-Users
+Firebase project for authentication
 
-userId
+1️⃣ Clone Repository
+git clone https://github.com/your-username/findyours.git
+cd findyours
 
-name
+2️⃣ Setup Environment Variables
 
-email
+Create a .env file in both frontend/ and backend/ folders. Example:
 
-authProvider
+backend/.env
 
-dateJoined
+CLOUDNAIRY_URL= your_cloudnairy_url_with_
+MONGO_URI=your_mongodb_connection_string
+FIREBASE_API_KEY=your_firebase_api_key
+JWT_SECRET=your_jwt_secret
 
-Items
 
-itemId
+frontend/.env
 
-itemName
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
 
-description
+3️⃣ Install Dependencies
+# Backend
+cd backend
+npm install
 
-imageURL
+# Frontend
+cd frontend
+npm install
 
-status (Lost / Found)
+4️⃣ Run Development server
+# Start backend (backend/)
+npm run dev
 
-dateReported
+# Start frontend (frontend/)
+npm start
 
-lastLocation (coordinates/address)
 
-reporterId (user reference)
+The app will be running on:
 
-Search Logs (optional)
+Frontend → http://localhost:3000
 
-query
+Backend → http://localhost:5000
 
-userId
+🔒 Security
 
-timestamp
+Firebase Authentication for secure login
 
-6. User Flow
+JWT for backend API access
 
-Registration/Login → via Firebase.
+Input validation & sanitization
 
-Post Item → user provides item details + optional image.
+Admin role for moderation
 
-Browse/Search Items → by location, date, or name.
+🌟 Future Enhancements
 
-Contact Reporter → reach out via app messaging or email (if provided).
+📱 Mobile app (React Native)
 
-Admin Moderation → maintain trust and data integrity.
+📍 Geolocation-based search
 
-7. Security Considerations
+🤖 AI-based image recognition for item matching
 
-Firebase Auth ensures secure login and identity management.
+🔔 Push notifications for item matches
 
-JWT tokens for backend API authentication.
+🤝 Contributing
 
-Input sanitization to prevent XSS/SQL injection.
-
-Role-based access (admin vs. general users).
-
-Secure file upload with validation (if supporting images).
-
-8. Future Enhancements
-
-Mobile app version (React Native).
-
-Geolocation-based item recommendations.
-
-AI-powered image recognition for matching similar items.
-
-Push notifications for item matches.
-
-Integration with local authorities (e.g., police lost & found).
-
-9. Project Management
-
-Agile Methodology with 2-week sprints.
-
-Tools: Jira / Trello for task tracking, GitHub for version control.
-
-Team Roles:
-
-Frontend Developer
-
-Backend Developer
-
-Database Administrator
-
-QA Tester
-
-Project Manager
-
-10. Conclusion
-
-FindYours empowers communities to collaborate in recovering lost items through a user-friendly and secure platform. With the MERN stack for scalability and Firebase for authentication, the system provides a reliable foundation for real-world adoption and future expansion.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Contributions are welcome! Please fork the repo and submit a pull request.
