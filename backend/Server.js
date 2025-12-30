@@ -27,6 +27,6 @@ app.use("/notify", notifyRouter);
 app.use("/", router);
 app.use("/item", reportRouter);
 
-app.listen(3000, () => {
+app.listen(3000 || 5000, () => {
     console.log("Server running on port 3000");
 });
