@@ -10,6 +10,8 @@ const fileCreate = require('./middleware/folderCreator');
 const ChatRouter = require('./route/ChatRoute');
 const dontenv = require('dotenv')
 
+dontenv.config()
+
 // console.log(process.env.CLOUDINARY_URL)
 connectDB();
 app.use(cors());
